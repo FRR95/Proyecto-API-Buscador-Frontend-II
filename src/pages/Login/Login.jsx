@@ -9,6 +9,7 @@ import { decodeToken } from "react-jwt";
 import { login } from "../../app/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
+import { CustomButton } from "../../components/CustomButton/CustomButton";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -61,7 +62,10 @@ export const Login = () => {
         value={user.password || ""}
         changeEmit={inputHandler}
       />
-      <button onClick={loginMe}>Login</button>
+      <CustomButton
+      design={""}
+      title={"Login"}
+      onClick={loginMe}/>
     </div>
   );
 };
