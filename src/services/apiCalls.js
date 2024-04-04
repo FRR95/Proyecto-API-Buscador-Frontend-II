@@ -1,5 +1,5 @@
 
-const root = "https://proyecto-api-buscador-backend-ii-dev-zkex.2.ie-1.fl0.io/"
+const root = "https://proyecto-api-buscador-backend-ii-dev-zkex.2.ie-1.fl0.io/api/"
 
 export const loginService = async (user) => {
   const options = {
@@ -12,6 +12,29 @@ export const loginService = async (user) => {
 
   try {
     const response = await fetch(`${root}auth/login`, options);
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const registerService = async (user) => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  };
+
+  try {
+    const response = await fetch(`${root}auth/register`, options);
 
     const data = await response.json();
 
