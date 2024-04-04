@@ -33,12 +33,12 @@ export const Header = () => {
                 path="/" title="Home" />
             {rdxUser?.credentials?.token ? (
                 <div className="d-flex justify-content-center align-items-center navigator-design">
-                    <CustomLink path="/profile" title={rdxUser?.credentials?.user?.roleName} />
+                    <CustomLink path="/profile" title={rdxUser?.credentials?.user?.username} />
                     <div
                         onClick={() => dispatch(logout({ credentials: "" }))}
                     >
 
-                        <CustomLink path="/profile" title={"LogOut"} />
+                        <CustomLink path="/" title={"LogOut"} />
                     </div>
                 </div>
             ) : (
