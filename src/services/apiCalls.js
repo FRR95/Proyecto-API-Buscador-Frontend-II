@@ -1,5 +1,5 @@
 
-const root = "http://localhost:4000/api/"
+const root = "https://proyecto-api-buscador-backend-ii-dev-zkex.2.ie-1.fl0.io/"
 
 export const loginService = async (user) => {
   const options = {
