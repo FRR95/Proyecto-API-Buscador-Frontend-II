@@ -20,16 +20,15 @@ export const Header = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(rdxUser, " credenciales pasaporte");
     }, [rdxUser]);
 
-  
+
 
 
 
     return (
         <div className=" d-flex justify-content-center align-items-center header-design">
-         
+
             <CustomLink
                 path="/" title="Home" />
             {rdxUser?.credentials?.token ? (
@@ -38,12 +37,15 @@ export const Header = () => {
                     <div
                         onClick={() => dispatch(logout({ credentials: "" }))}
                     >
-                        
+
                         <CustomLink path="/profile" title={"LogOut"} />
                     </div>
                 </div>
             ) : (
-                <CustomLink path="/login" title={"Login"} />
+                <div className="d-flex justify-content-center align-items-center navigator-design">
+                    <CustomLink path="/login" title={"Login"} />
+                    <CustomLink path="/register" title={"Register"} />
+                </div>
             )}
         </div>
     );

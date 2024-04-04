@@ -46,6 +46,9 @@ export const Login = () => {
         navigate("/")
       }, 500)
     }
+    if (!fetched.success){
+      console.log(fetched.message)
+    }
   };
 
   return (
