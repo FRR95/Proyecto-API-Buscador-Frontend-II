@@ -4,12 +4,14 @@ import { useSelector } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 import { useEffect, useState } from "react";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
-import { CreatePost, GetProfile, UpdateProfile } from "../../services/apiCalls";
+import { CreatePost, GetProfile, GetUserPosts, UpdateProfile } from "../../services/apiCalls";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { CustomButton } from "../../components/CustomButton/CustomButton";
+import { PostCard } from "../../components/PostCard/PostCard";
 
 export const Profile = () => {
   const navigate = useNavigate();
+  const rdxUser = useSelector(userData)
 
   const [loadedData, setLoadedData] = useState(false);
   const [editboolean, setEditBoolean] = useState(false);
@@ -42,7 +44,34 @@ export const Profile = () => {
     }));
   };
 
-  const rdxUser = useSelector(userData)
+  const [posts, setPosts] = useState([]);
+
+  const BringPosts = async () => {
+    try {
+
+
+      const fetched = await GetUserPosts(rdxUser.credentials.token)
+      setPosts(fetched.data)
+      console.log(fetched)
+
+
+
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+
+
+  useEffect(() => {
+    if (posts.length === 0) {
+      BringPosts()
+    }
+
+  }, [posts])
+
 
   useEffect(() => {
     if (!rdxUser.credentials.token) {
@@ -54,7 +83,7 @@ export const Profile = () => {
     try {
       const fetched = await GetProfile(rdxUser.credentials.token);
       setLoadedData(true);
-     
+
 
       setUser({
         name: fetched.data.name,
@@ -96,6 +125,8 @@ export const Profile = () => {
       title: "",
       email: "",
     });
+
+    BringPosts()
   }
 
   useEffect(() => {
@@ -179,6 +210,37 @@ export const Profile = () => {
             />
           </div>
         </div>
+
+
+        {posts.length > 0
+          ? (
+            <div>
+              {posts.map(
+                post => {
+                  return (
+
+                    <>
+
+                      <div className="d-flex mt-5 justify-content-center row   align-items-center">
+                     <PostCard
+                     buttonsSection={"d-none"}
+                   
+                     userName={post.title}
+                     title={post.title}
+                     description={post.description}
+                     datePost={post.createdAt}
+                     />
+                      </div>
+
+                    </>
+                  )
+                }
+              )
+              }
+            </div>)
+          : (<p>No tienes posts</p>)
+        }
+
       </div>
 
     </>)

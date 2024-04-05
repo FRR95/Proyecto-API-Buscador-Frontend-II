@@ -1,8 +1,8 @@
 import "./PostCard.css"
 
-export const PostCard = ({ datePost, userName, title, description,buttonsSection,buttonEditSection,emitEditButton,buttonEditDesign,buttonEditTitle,buttonDetailSection,emitDetailButton,buttonDetailDesign,buttonDetailTitle,buttonDeleteSection,emitDeleteButton,buttonDeleteDesign,buttonDeleteTitle }) => {
+export const PostCard = ({ datePost, userName, title, description,buttonsSection,buttonEditSection,emitEditButton,buttonEditDesign,buttonEditTitle,buttonDetailSection,emitDetailButton,buttonDetailDesign,buttonDetailTitle,buttonDeleteSection,emitDeleteButton,buttonDeleteDesign,buttonDeleteTitle,key }) => {
     return (
-        <div className="d-flex row justify-content-center align-items-center postCardDesign">
+        <div key={key} className="d-flex row justify-content-center align-items-center postCardDesign">
             <div className="d-flex row justify-content-center align-items-center">
                 <h5 className="d-flex row justify-content-start align-items-center">{userName}</h5>
                 <h5 className="d-flex row justify-content-start align-items-center">{title}</h5>
