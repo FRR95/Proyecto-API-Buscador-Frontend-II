@@ -23,6 +23,8 @@ export const Profile = () => {
 
 
   const [user, setUser] = useState({
+    following:"",
+    followers:"",
     name: "",
     email: "",
   });
@@ -89,9 +91,12 @@ export const Profile = () => {
 
 
       setUser({
+        following:fetched.data.following,
+        followers:fetched.data.followers,
         name: fetched.data.name,
         email: fetched.data.email,
       });
+ 
 
     } catch (error) {
       console.log(error);
@@ -220,6 +225,12 @@ export const Profile = () => {
                 buttonEditTitle={`Editar ${user.name}`}
                 buttonDeleteTitle={`Editar ${user.name}`}
                 buttonEditDesign={"buttonEditDesign"}
+
+                followFollowingSection={"d-flex row justify-content-center align-items-center"}
+                buttonFollowerSection={"d-flex col justify-content-center align-items-center"}
+                numberOfFollowers={user.followers.length}
+                buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
+                numberOfFollowing={user.following.length}
                 emitEditButton={changeboolean}
 
 
@@ -277,7 +288,8 @@ export const Profile = () => {
 
                       <div className="d-flex  justify-content-center align-items-center">
                         <PostCard
-                          buttonsSection={"d-flex flex-start"}
+                          buttonsSection={"d-flex justify-content-start"}
+                          buttonLikeSection={"d-flex justify-content-end"}
                           buttonDeleteSection={"d-flex justify-content-center m-1   align-items-center"}
                           buttonDeleteTitle={"Borrar post"}
                           buttonEditSection={"d-flex justify-content-center m-1   align-items-center"}
@@ -288,6 +300,7 @@ export const Profile = () => {
                           title={post.title}
                           description={post.description}
                           datePost={post.createdAt}
+                          numberOflikes={post.numberOfLikes.length}
                           emitDeleteButton={() => deletePost(post._id)}
                           emitEditButton={() => AddInfoToForm(post)}
                           emitDetailButton={() => manageDetail(post)}
