@@ -61,6 +61,8 @@ export const Home = () => {
                   title={post.title}
                   description={post.description}
                   buttonsSection={"d-none"}
+                  buttonLikeSection={"d-flex justify-content-end"}
+                  numberOflikes={post.numberOfLikes.length}
                
                   />
                   </>

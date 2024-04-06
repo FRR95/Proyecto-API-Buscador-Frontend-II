@@ -1,6 +1,6 @@
 import "./PostCard.css"
 
-export const PostCard = ({ datePost, userName, title, description,buttonsSection,buttonEditSection,emitEditButton,buttonEditDesign,buttonEditTitle,buttonDetailSection,emitDetailButton,buttonDetailDesign,buttonDetailTitle,buttonDeleteSection,emitDeleteButton,buttonDeleteDesign,buttonDeleteTitle,key }) => {
+export const PostCard = ({ datePost, userName, title, description,buttonsSection,buttonEditSection,emitEditButton,buttonEditDesign,buttonEditTitle,buttonDetailSection,emitDetailButton,buttonDetailDesign,buttonDetailTitle,buttonDeleteSection,emitDeleteButton,buttonDeleteDesign,buttonDeleteTitle,buttonLikeSection,numberOflikes,emitLikeButton,buttonLikeDesign,key }) => {
     return (
         <div key={key} className="d-flex row m-5 justify-content-center align-items-center postCardDesign">
             <div className="d-flex row justify-content-center align-items-center">
@@ -27,6 +27,11 @@ export const PostCard = ({ datePost, userName, title, description,buttonsSection
                     <i className="bi bi-trash3"></i>   {buttonDeleteTitle}
                     </button>
                 </div>
+            </div>
+            <div className={buttonLikeSection}>
+            <button onClick={emitLikeButton} className={buttonLikeDesign}>
+            <i class="bi bi-heart-fill"></i> {numberOflikes}
+            </button>
             </div>
         </div>)
 
