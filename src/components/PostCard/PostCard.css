@@ -1,6 +1,6 @@
-.postCardDesign{
-  
-    /* height: 20em; */
-    width: 30em;
-    background-color: antiquewhite;
+.postCardDesign {
+    color: #534b57;
+    background-color: #7adaf7;
+    border: 1px solid azure;
+    padding: 2em;
 }

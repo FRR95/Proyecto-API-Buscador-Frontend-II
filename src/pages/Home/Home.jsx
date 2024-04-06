@@ -48,8 +48,8 @@ export const Home = () => {
   return (
     <>
       {!rdxUser?.credentials.token
-        ? (<div className="d-flex justify-content-center align-items-center home-design">No estas logueado</div>)
-        : (<div className="d-flex justify-content-center align-items-center home-design">
+        ? (<div className="  d-flex  justify-content-center align-items-center home-design">No estas logueado</div>)
+        : (<div className=" d-flex  justify-content-center align-items-center home-design">
           {followingPost.length > 0
           ?(<div>
             {followingPost.map(

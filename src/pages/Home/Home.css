@@ -1,5 +1,4 @@
 .home-design {
-    height: 88vh;
-    width: 100vw;
-    background-color: darkgray;
+    min-height: 88vh;
+    background-color: #1CC4F7;
 }

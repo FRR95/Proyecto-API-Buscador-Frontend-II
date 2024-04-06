@@ -1,8 +1,8 @@
 .login-design {
-    height: 88vh;
-    width: 100vw;
-
-    background-color: darkgray;
+    margin: 0;
+    padding: 0;
+    min-height: 88vh;
+    background-color: #1CC4F7;
 
 
 }

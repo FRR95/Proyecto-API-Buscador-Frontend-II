@@ -18,7 +18,7 @@ export const ProfileCard = ({ buttonEditDesign, buttonEditTitle, buttonDeleteDes
             <div className={buttonSectionDesign} >
                 <div className={buttonEditSection}>
                     <button onClick={emitEditButton} className={buttonEditDesign}>
-                    <i className="bi bi-pen"></i>    {buttonEditTitle}
+                    <i className="bi bi-pen-fill"></i>    {buttonEditTitle}
                     </button>
 
                 </div>

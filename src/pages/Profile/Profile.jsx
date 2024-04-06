@@ -249,16 +249,18 @@ export const Profile = () => {
               changeEmit={postHandler}
             />
           </div>
-          <div className="d-flex justify-content-center flex-column  align-items-center">
+          <div className="d-flex justify-content-center   align-items-center">
             <CustomButton
               onClick={createPost}
-              design={""}
+              design={"m-1"}
               title={`Post`}
+              icon={"bi bi-sticky-fill"}
             />
             <CustomButton
               onClick={()=>updatePost(postCredentials._id)}
-              design={""}
+              design={"m-1"}
               title={`Edit Post`}
+              icon={"bi bi-pen-fill"}
             />
           </div>
         </div>
@@ -273,14 +275,14 @@ export const Profile = () => {
 
                     <>
 
-                      <div className="d-flex mt-5 justify-content-center row   align-items-center">
+                      <div className="d-flex  justify-content-center align-items-center">
                         <PostCard
-                          buttonsSection={"d-flex justify-content-center row   align-items-center "}
-                          buttonDeleteSection={"d-flex justify-content-center col   align-items-center"}
+                          buttonsSection={"d-flex flex-start"}
+                          buttonDeleteSection={"d-flex justify-content-center m-1   align-items-center"}
                           buttonDeleteTitle={"Borrar post"}
-                          buttonEditSection={"d-flex justify-content-center col   align-items-center"}
+                          buttonEditSection={"d-flex justify-content-center m-1   align-items-center"}
                           buttonEditTitle={"Editar post"}
-                          buttonDetailSection={"d-flex justify-content-center col   align-items-center"}
+                          buttonDetailSection={"d-flex justify-content-center m-1  align-items-center"}
                           buttonDetailTitle={"Ver post"}
                           userName={user.name}
                           title={post.title}

@@ -1,9 +1,8 @@
 .profileDesign {
- 
-    width: 99.5vw;
- 
+    margin: 0;
+    padding: 0;
     min-height: 88vh;
-    background-color: darkgray;
+    background-color: #1CC4F7;
 
 
 }

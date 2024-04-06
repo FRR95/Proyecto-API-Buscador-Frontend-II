@@ -1,6 +1,6 @@
 .profileCardDesign{
-  
+    border: 1px solid azure;
     height: 20em;
     width: 40em;
-    background-color: antiquewhite;
+    background-color: #59d0f5;
 }

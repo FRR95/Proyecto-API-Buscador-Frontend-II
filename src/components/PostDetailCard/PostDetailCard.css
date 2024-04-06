@@ -1,6 +1,5 @@
 .postDetailCardDesign{
-  
-    height: 20em;
-    width: 30em;
-    background-color: antiquewhite;
+  height: 23em;
+    background-color: #7adaf7;
+    border:1px solid azure;
 }
