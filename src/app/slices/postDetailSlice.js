@@ -18,6 +18,6 @@ export const postDetailSlice = createSlice({
 
 export const { updatePostDetail } = postDetailSlice.actions;
 
-export const detailData = (state) => state.postDetail;
+export const postDetailData = (state) => state.postDetail;
 
 export default postDetailSlice.reducer;

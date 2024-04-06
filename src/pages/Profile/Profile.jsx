@@ -184,7 +184,7 @@ export const Profile = () => {
    const dispatched= dispatch(updatePostDetail({ post }));
     console.log(dispatched)
     //2. navegamos a la vista de detalle
-    // navigate("/detail");
+    navigate("/postdetail");
   };
 
   return (
