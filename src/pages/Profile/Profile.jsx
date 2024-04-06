@@ -1,16 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import "./Profile.css"
-import { useSelector } from "react-redux";
+import { updatePostDetail } from "../../app/slices/postDetailSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 import { useEffect, useState } from "react";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
-import { CreatePost, GetProfile, GetUserPosts, UpdateProfile } from "../../services/apiCalls";
+import { CreatePost, GetProfile, GetUserPosts, UpdateProfile, deleteMyPost, updateMyPost } from "../../services/apiCalls";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { CustomButton } from "../../components/CustomButton/CustomButton";
 import { PostCard } from "../../components/PostCard/PostCard";
 
 export const Profile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const rdxUser = useSelector(userData)
 
   const [loadedData, setLoadedData] = useState(false);
@@ -33,6 +36,7 @@ export const Profile = () => {
 
 
   const [postCredentials, setPostCredentials] = useState({
+    _id:"",
     title: "",
     description: "",
   });
@@ -52,7 +56,6 @@ export const Profile = () => {
 
       const fetched = await GetUserPosts(rdxUser.credentials.token)
       setPosts(fetched.data)
-      console.log(fetched)
 
 
 
@@ -129,6 +132,44 @@ export const Profile = () => {
     BringPosts()
   }
 
+  const deletePost = async (postId) => {
+    const fetched = await deleteMyPost(postId, rdxUser.credentials.token)
+    if (!fetched.success) {
+      console.log(fetched.message);
+    }
+    console.log(fetched.message);
+    BringPosts()
+
+  }
+
+  const updatePost = async (postId) => {
+    const fetched = await updateMyPost(postId,postCredentials, rdxUser.credentials.token)
+    if (!fetched.success){
+      console.log(fetched.message)
+    }
+
+    console.log(fetched.message)
+    BringPosts()
+
+    setPostCredentials({
+      _id:"",
+      title: "",
+      description: ""
+    })
+  }
+
+  const AddInfoToForm = async (post) => {
+    setPostCredentials({
+      _id:post._id,
+      title: post.title,
+      description: post.description
+    })
+
+    console.log(postCredentials)
+  }
+
+  
+
   useEffect(() => {
 
     if (!loadedData) {
@@ -138,7 +179,13 @@ export const Profile = () => {
   }, [user])
 
 
-
+  const manageDetail = (post) => {
+    //1. guardamos en RDX
+   const dispatched= dispatch(updatePostDetail({ post }));
+    console.log(dispatched)
+    //2. navegamos a la vista de detalle
+    // navigate("/detail");
+  };
 
   return (
     <>
@@ -208,6 +255,11 @@ export const Profile = () => {
               design={""}
               title={`Post`}
             />
+            <CustomButton
+              onClick={()=>updatePost(postCredentials._id)}
+              design={""}
+              title={`Edit Post`}
+            />
           </div>
         </div>
 
@@ -222,14 +274,22 @@ export const Profile = () => {
                     <>
 
                       <div className="d-flex mt-5 justify-content-center row   align-items-center">
-                     <PostCard
-                     buttonsSection={"d-none"}
-                   
-                     userName={post.title}
-                     title={post.title}
-                     description={post.description}
-                     datePost={post.createdAt}
-                     />
+                        <PostCard
+                          buttonsSection={"d-flex justify-content-center row   align-items-center "}
+                          buttonDeleteSection={"d-flex justify-content-center col   align-items-center"}
+                          buttonDeleteTitle={"Borrar post"}
+                          buttonEditSection={"d-flex justify-content-center col   align-items-center"}
+                          buttonEditTitle={"Editar post"}
+                          buttonDetailSection={"d-flex justify-content-center col   align-items-center"}
+                          buttonDetailTitle={"Ver post"}
+                          userName={user.name}
+                          title={post.title}
+                          description={post.description}
+                          datePost={post.createdAt}
+                          emitDeleteButton={() => deletePost(post._id)}
+                          emitEditButton={() => AddInfoToForm(post)}
+                          emitDetailButton={() => manageDetail(post)}
+                        />
                       </div>
 
                     </>
@@ -238,7 +298,7 @@ export const Profile = () => {
               )
               }
             </div>)
-          : (<p>No tienes posts</p>)
+          : (<p>No tienes posts aun</p>)
         }
 
       </div>
