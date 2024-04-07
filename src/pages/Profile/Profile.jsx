@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 import { useEffect, useState } from "react";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
-import { CreatePost, GetProfile, GetUserPosts, UpdateProfile, deleteMyPost, updateMyPost } from "../../services/apiCalls";
+import { CreatePost, GetProfile, GetUserPosts, LikeDislikePost, UpdateProfile, deleteMyPost, updateMyPost } from "../../services/apiCalls";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { CustomButton } from "../../components/CustomButton/CustomButton";
 import { PostCard } from "../../components/PostCard/PostCard";
@@ -192,6 +192,22 @@ export const Profile = () => {
     navigate("/postdetail");
   };
 
+  const likeUnlikePost =async(postId)=>{
+    
+try {
+  const fetched =await LikeDislikePost(postId,rdxUser.credentials.token)
+
+  if(!fetched.success){
+    console.log(fetched.message)
+  }
+  console.log(fetched.message)
+  BringPosts()
+
+} catch (error) {
+  console.log(error)
+}
+  }
+
   return (
     <>
       <div className="d-flex justify-content-center row  align-items-center profileDesign">
@@ -304,6 +320,7 @@ export const Profile = () => {
                           emitDeleteButton={() => deletePost(post._id)}
                           emitEditButton={() => AddInfoToForm(post)}
                           emitDetailButton={() => manageDetail(post)}
+                          emitLikeButton={() => likeUnlikePost(post._id)}
                         />
                       </div>
 
