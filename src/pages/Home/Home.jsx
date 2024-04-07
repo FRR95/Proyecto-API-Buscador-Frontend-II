@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Home.css";
 import { useSelector } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
-import { getTimeline } from "../../services/apiCalls";
+import { LikeDislikePost, getTimeline } from "../../services/apiCalls";
 import { PostCard } from "../../components/PostCard/PostCard";
 export const Home = () => {
   //Instancia de Redux en modo lectura para home
@@ -10,10 +10,6 @@ export const Home = () => {
   const rdxUser = useSelector(userData)
 
   const [followingPost, setFollowingPost] = useState([])
-
-  useEffect(() => {
-   
-  }, [rdxUser])
 
   const BringTimelinePosts = async () => {
     try {
@@ -31,6 +27,10 @@ export const Home = () => {
   }
 
   useEffect(() => {
+   
+  }, [rdxUser])
+
+  useEffect(() => {
     if(rdxUser?.credentials.token){
     if (followingPost.length === 0) {
       BringTimelinePosts()
@@ -38,6 +38,24 @@ export const Home = () => {
   }
 
   }, [followingPost])
+
+
+
+  const likeUnlikePost =async(postId)=>{
+    
+    try {
+      const fetched =await LikeDislikePost(postId,rdxUser.credentials.token)
+    
+      if(!fetched.success){
+        console.log(fetched.message)
+      }
+      console.log(fetched.message)
+      BringTimelinePosts()
+    
+    } catch (error) {
+      console.log(error)
+    }
+      }
 
 
 
@@ -62,6 +80,7 @@ export const Home = () => {
                   description={post.description}
                   buttonsSection={"d-none"}
                   buttonLikeSection={"d-flex justify-content-end"}
+                  emitLikeButton={() => likeUnlikePost(post._id)}
                   numberOflikes={post.numberOfLikes.length}
                
                   />
