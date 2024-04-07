@@ -34,6 +34,7 @@ export const Header = () => {
             {rdxUser?.credentials?.token ? (
                 <div className="d-flex justify-content-center align-items-center navigator-design">
                     <CustomLink path="/profile" title={rdxUser?.credentials?.user?.username} />
+                    <CustomLink path="/discover" title={"@ Descubre"} />
                     <div
                         onClick={() => dispatch(logout({ credentials: "" }))}
                     >

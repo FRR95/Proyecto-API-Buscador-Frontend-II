@@ -30,7 +30,7 @@ export const PostCard = ({ datePost, userName, title, description,buttonsSection
             </div>
             <div className={buttonLikeSection}>
             <button onClick={emitLikeButton} className={buttonLikeDesign}>
-            <i class="bi bi-heart-fill"></i> {numberOflikes}
+            <i className="bi bi-heart-fill"></i> {numberOflikes}
             </button>
             </div>
         </div>)
