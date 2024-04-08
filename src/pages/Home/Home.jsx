@@ -17,7 +17,7 @@ export const Home = () => {
 
       const fetched = await getTimeline(rdxUser.credentials.token)
       setFollowingPost(fetched.data)
-      console.log(fetched)
+   
    
 
     } catch (error) {
