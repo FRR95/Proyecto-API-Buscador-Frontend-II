@@ -8,6 +8,7 @@ import { PostCard } from "../../components/PostCard/PostCard";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { updatePostDetail } from "../../app/slices/postDetailSlice";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
+import { updateProfileDetail } from "../../app/slices/profileDetailSlice";
 
 export const Discover = () => {
   const dispatch = useDispatch();
@@ -108,6 +109,13 @@ export const Discover = () => {
     //2. navegamos a la vista de detalle
     navigate("/postdetail");
   };
+  const manageUserDetail = (user) => {
+    //1. guardamos en RDX
+    const dispatched = dispatch(updateProfileDetail({ user }));
+    console.log(dispatched)
+    //2. navegamos a la vista de detalle
+    navigate("/profiledetail");
+  };
 
 
 
@@ -142,6 +150,7 @@ export const Discover = () => {
                         buttonDeleteTitle={`Borrar ${user.name}`}
                         buttonDetailSection={`d-flex`}
                         buttonDetailTitle={`Ver perfil de ${user.name}`}
+                        emitDetailButton={() => manageUserDetail(user)}
                       />
                     </div>
 

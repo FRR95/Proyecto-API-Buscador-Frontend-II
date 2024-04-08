@@ -6,6 +6,7 @@ import { Profile } from "../../pages/Profile/Profile";
 import { PostDetail } from "../../pages/PostDetail/PostDetail";
 import { Discover } from "../../pages/Discover/Discover";
 import { AdminPanel } from "../../pages/AdminPanel/AdminPanel";
+import { ProfileDetail } from "../../pages/ProfileDetail/ProfileDetail";
 
 
 
@@ -18,6 +19,7 @@ export const Body = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/postdetail" element={<PostDetail />} />
+      <Route path="/profiledetail" element={<ProfileDetail />} />
       <Route path="/discover" element={<Discover />} />
       <Route path="/adminpanel" element={<AdminPanel />} />
     </Routes>
