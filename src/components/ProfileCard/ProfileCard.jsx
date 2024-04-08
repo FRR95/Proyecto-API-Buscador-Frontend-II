@@ -1,7 +1,7 @@
 import { CustomButton } from "../CustomButton/CustomButton"
 import "./ProfileCard.css"
 
-export const ProfileCard = ({ buttonEditDesign, buttonEditTitle, buttonDeleteDesign, buttonDeleteTitle, username, email, buttonSectionDesign, buttonEditSection, buttonDeleteSection, emitDeleteButton, emitEditButton, followFollowingSection,buttonFollowerSection,numberOfFollowers,buttonFollowingSection,numberOfFollowing,usernameTest }) => {
+export const ProfileCard = ({ buttonEditDesign, buttonEditTitle, buttonDeleteDesign, buttonDeleteTitle, username, email, buttonSectionDesign, buttonEditSection, buttonDeleteSection, emitDeleteButton, emitEditButton, followFollowingSection, buttonFollowerSection, numberOfFollowers, buttonFollowingSection, numberOfFollowing, buttonDetailSection, emitDetailButton, buttonDetailDesign, buttonDetailTitle }) => {
 
     return (
         <div className="d-flex row m-5 justify-content-center align-items-center profileCardDesign">
@@ -19,12 +19,12 @@ export const ProfileCard = ({ buttonEditDesign, buttonEditTitle, buttonDeleteDes
                 <div className={buttonFollowerSection}>
 
                     <h5>Seguidores: {numberOfFollowers}</h5>
-                
+
 
                 </div>
                 <div className={buttonFollowingSection}>
                     <h5>Siguiendo: {numberOfFollowing}</h5>
-                
+
                 </div>
             </div>
 
@@ -38,7 +38,12 @@ export const ProfileCard = ({ buttonEditDesign, buttonEditTitle, buttonDeleteDes
                 </div>
                 <div className={buttonDeleteSection}>
                     <button onClick={emitDeleteButton} className={buttonDeleteDesign}>
-                        {buttonDeleteTitle}
+                        <i class="bi bi-trash3"></i>    {buttonDeleteTitle}
+                    </button>
+                </div>
+                <div className={buttonDetailSection}>
+                    <button onClick={emitDetailButton} className={buttonDetailDesign}>
+                        <i class="bi bi-eye-fill"></i>    {buttonDetailTitle}
                     </button>
                 </div>
             </div>

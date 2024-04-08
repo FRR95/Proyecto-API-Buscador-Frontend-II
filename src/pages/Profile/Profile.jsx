@@ -236,7 +236,8 @@ try {
                 email={user.email}
                 buttonSectionDesign={"d-flex row justify-content-center align-items-center"}
 
-                buttonDeleteSection={"d-none col justify-content-center align-items-center"}
+                buttonDeleteSection={"d-none"}
+                buttonDetailSection={"d-none"}
                 buttonEditSection={"d-flex col justify-content-center align-items-center"}
                 buttonEditTitle={`Editar ${user.name}`}
                 buttonDeleteTitle={`Editar ${user.name}`}
