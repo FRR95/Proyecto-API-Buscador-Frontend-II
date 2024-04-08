@@ -10,6 +10,9 @@ import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { CustomButton } from "../../components/CustomButton/CustomButton";
 import { PostCard } from "../../components/PostCard/PostCard";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,8 +26,8 @@ export const Profile = () => {
 
 
   const [user, setUser] = useState({
-    following:"",
-    followers:"",
+    following: "",
+    followers: "",
     name: "",
     email: "",
   });
@@ -38,7 +41,7 @@ export const Profile = () => {
 
 
   const [postCredentials, setPostCredentials] = useState({
-    _id:"",
+    _id: "",
     title: "",
     description: "",
   });
@@ -91,12 +94,12 @@ export const Profile = () => {
 
 
       setUser({
-        following:fetched.data.following,
-        followers:fetched.data.followers,
+        following: fetched.data.following,
+        followers: fetched.data.followers,
         name: fetched.data.name,
         email: fetched.data.email,
       });
- 
+
 
     } catch (error) {
       console.log(error);
@@ -148,8 +151,8 @@ export const Profile = () => {
   }
 
   const updatePost = async (postId) => {
-    const fetched = await updateMyPost(postId,postCredentials, rdxUser.credentials.token)
-    if (!fetched.success){
+    const fetched = await updateMyPost(postId, postCredentials, rdxUser.credentials.token)
+    if (!fetched.success) {
       console.log(fetched.message)
     }
 
@@ -157,7 +160,7 @@ export const Profile = () => {
     BringPosts()
 
     setPostCredentials({
-      _id:"",
+      _id: "",
       title: "",
       description: ""
     })
@@ -165,7 +168,7 @@ export const Profile = () => {
 
   const AddInfoToForm = async (post) => {
     setPostCredentials({
-      _id:post._id,
+      _id: post._id,
       title: post.title,
       description: post.description
     })
@@ -173,7 +176,7 @@ export const Profile = () => {
     console.log(postCredentials)
   }
 
-  
+
 
   useEffect(() => {
 
@@ -186,26 +189,26 @@ export const Profile = () => {
 
   const manageDetail = (post) => {
     //1. guardamos en RDX
-   const dispatched= dispatch(updatePostDetail({ post }));
+    const dispatched = dispatch(updatePostDetail({ post }));
     console.log(dispatched)
     //2. navegamos a la vista de detalle
     navigate("/postdetail");
   };
 
-  const likeUnlikePost =async(postId)=>{
-    
-try {
-  const fetched =await LikeDislikePost(postId,rdxUser.credentials.token)
+  const likeUnlikePost = async (postId) => {
 
-  if(!fetched.success){
-    console.log(fetched.message)
-  }
-  console.log(fetched.message)
-  BringPosts()
+    try {
+      const fetched = await LikeDislikePost(postId, rdxUser.credentials.token)
 
-} catch (error) {
-  console.log(error)
-}
+      if (!fetched.success) {
+        console.log(fetched.message)
+      }
+      toast(`💗 ${fetched.message}`)
+      BringPosts()
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -240,7 +243,7 @@ try {
                 buttonDetailSection={"d-none"}
                 buttonEditSection={"d-flex col justify-content-center align-items-center"}
                 buttonEditTitle={`Editar ${user.name}`}
-                
+
                 buttonEditDesign={"buttonEditDesign"}
 
                 followFollowingSection={"d-flex row justify-content-center align-items-center"}
@@ -285,7 +288,7 @@ try {
               icon={"bi bi-sticky-fill"}
             />
             <CustomButton
-              onClick={()=>updatePost(postCredentials._id)}
+              onClick={() => updatePost(postCredentials._id)}
               design={"m-1"}
               title={`Edit Post`}
               icon={"bi bi-pen-fill"}
@@ -335,6 +338,20 @@ try {
         }
 
       </div>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        transition:Bounce
+      />
 
     </>)
 }
