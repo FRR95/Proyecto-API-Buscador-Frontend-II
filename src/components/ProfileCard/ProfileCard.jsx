@@ -31,19 +31,19 @@ export const ProfileCard = ({ buttonEditDesign, buttonEditTitle, buttonDeleteDes
             {/* Button section */}
             <div className={buttonSectionDesign} >
                 <div className={buttonEditSection}>
-                    <button onClick={emitEditButton} className={buttonEditDesign}>
+                    <button onClick={emitEditButton} className={buttonEditDesign} data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i className="bi bi-pen-fill"></i>    {buttonEditTitle}
                     </button>
 
                 </div>
                 <div className={buttonDeleteSection}>
                     <button onClick={emitDeleteButton} className={buttonDeleteDesign}>
-                        <i class="bi bi-trash3"></i>    {buttonDeleteTitle}
+                        <i className="bi bi-trash3"></i>    {buttonDeleteTitle}
                     </button>
                 </div>
                 <div className={buttonDetailSection}>
                     <button onClick={emitDetailButton} className={buttonDetailDesign}>
-                        <i class="bi bi-eye-fill"></i>    {buttonDetailTitle}
+                        <i className="bi bi-eye-fill"></i>    {buttonDetailTitle}
                     </button>
                 </div>
             </div>

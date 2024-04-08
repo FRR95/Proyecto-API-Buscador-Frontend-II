@@ -240,7 +240,7 @@ try {
                 buttonDetailSection={"d-none"}
                 buttonEditSection={"d-flex col justify-content-center align-items-center"}
                 buttonEditTitle={`Editar ${user.name}`}
-                buttonDeleteTitle={`Editar ${user.name}`}
+                
                 buttonEditDesign={"buttonEditDesign"}
 
                 followFollowingSection={"d-flex row justify-content-center align-items-center"}

@@ -38,9 +38,10 @@ export const Header = () => {
                     <div
                         onClick={() => dispatch(logout({ credentials: "" }))}
                     >
-
+                      
                         <CustomLink path="/" title={"LogOut"} />
                     </div>
+                    {rdxUser?.credentials?.user?.roleName ==="admin" && <CustomLink path="/adminpanel" title={"Admin Panel"} />  }
                 </div>
             ) : (
                 <div className="d-flex justify-content-center align-items-center navigator-design">

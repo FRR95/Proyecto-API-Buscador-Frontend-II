@@ -71,7 +71,7 @@ export const GetProfile = async (token) => {
     return error;
   }
 };
-export const UpdateProfile = async (token,user) => {
+export const UpdateProfile = async (userId,user,token) => {
   const options = {
     method: "PUT",
     headers: {
@@ -82,7 +82,7 @@ export const UpdateProfile = async (token,user) => {
   };
 
   try {
-    const response = await fetch(`${root}users/profile`, options);
+    const response = await fetch(`${root}users/${userId}`, options);
 
     const data = await response.json();
 

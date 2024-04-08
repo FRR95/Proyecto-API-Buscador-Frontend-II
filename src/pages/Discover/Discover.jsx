@@ -3,8 +3,9 @@ import { userData } from "../../app/slices/userSlice"
 import { useSelector, useDispatch } from "react-redux";
 import "./Discover.css"
 import { useEffect, useState } from "react";
-import { deleteMyPost, getPosts, getUsers } from "../../services/apiCalls";
+import { UpdateProfile, deleteMyPost, getPosts, getUsers } from "../../services/apiCalls";
 import { PostCard } from "../../components/PostCard/PostCard";
+import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { updatePostDetail } from "../../app/slices/postDetailSlice";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
 
@@ -14,6 +15,19 @@ export const Discover = () => {
   const rdxUser = useSelector(userData)
   const [posts, setPosts] = useState([])
   const [users, setUsers] = useState([])
+  const [userCredentials, setUserCredentials] = useState(
+    {
+      _id:"",
+      name:""
+    }
+  )
+
+  const inputUserHandler = (e) => {
+    setUserCredentials((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
 
 
@@ -30,7 +44,7 @@ export const Discover = () => {
 
       const fetched = await getUsers(rdxUser.credentials.token)
       setUsers(fetched.data)
-      console.log(fetched)
+      
 
 
     } catch (error) {
@@ -55,7 +69,7 @@ export const Discover = () => {
 
       const fetched = await getPosts(rdxUser.credentials.token)
       setPosts(fetched.data)
-      console.log(fetched)
+
 
 
     } catch (error) {
@@ -91,14 +105,20 @@ export const Discover = () => {
   const manageDetail = (post) => {
     //1. guardamos en RDX
     const dispatched = dispatch(updatePostDetail({ post }));
-    console.log(dispatched)
     //2. navegamos a la vista de detalle
     navigate("/postdetail");
   };
 
 
+
+
+
+
+
+
   return (
     <div className="d-flex row    justify-content-center align-items-center discoverPageDesign">
+
 
       {posts.length > 0
         ? (
@@ -112,10 +132,16 @@ export const Discover = () => {
 
                     <div className="d-flex  justify-content-center align-items-center">
                       <ProfileCard
-                        buttonSectionDesign={rdxUser?.credentials?.user?.roleName === "admin" ? ("d-flex justify-content-start") : ("d-none")}
                         username={user.name}
                         email={user.email}
-                        followFollowingSection={"d-none "}
+                        followFollowingSection={"d-none"}
+                        buttonSectionDesign={"d-flex justify-content-around"}
+                        buttonEditSection={`d-none`}
+                        buttonEditTitle={`Editar ${user.name}`}
+                        buttonDeleteSection={`d-none`}
+                        buttonDeleteTitle={`Borrar ${user.name}`}
+                        buttonDetailSection={`d-flex`}
+                        buttonDetailTitle={`Ver perfil de ${user.name}`}
                       />
                     </div>
 
