@@ -235,6 +235,29 @@ export const getUsers = async (token) => {
     return error;
   }
 };
+export const searchUsers = async (token,email) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
+
+  try {
+    const response = await fetch(`${root}users?email=${email}`, options);
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 
 
 export const getTimeline = async (token) => {
