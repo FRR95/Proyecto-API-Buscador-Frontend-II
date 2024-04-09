@@ -71,7 +71,31 @@ export const GetProfile = async (token) => {
     return error;
   }
 };
-export const UpdateProfile = async (userId,user,token) => {
+export const UpdateProfile = async (user,token) => {
+  const options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(user),
+  };
+
+  try {
+    const response = await fetch(`${root}users/profile`, options);
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const UpdateUserProfile = async (userId,user,token) => {
   const options = {
     method: "PUT",
     headers: {
@@ -223,6 +247,29 @@ export const getUsers = async (token) => {
 
   try {
     const response = await fetch(`${root}users`, options);
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+export const deleteUsers = async (userId,token) => {
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
+
+  try {
+    const response = await fetch(`${root}users/${userId}`, options);
 
     const data = await response.json();
 

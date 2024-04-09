@@ -4,6 +4,8 @@ import { useState } from "react";
 import { loginService } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
+
+import { ToastContainer, toast } from 'react-toastify';
 //Redux
 
 import { login } from "../../app/slices/userSlice";
@@ -41,13 +43,13 @@ export const Login = () => {
       };
 
       dispatch(login({ credentials: passport }));
-
-      setTimeout(()=> {
+      toast(` 🙍‍♂️ ${fetched.message} Redireccionando a Home`)
+      setTimeout(() => {
         navigate("/")
-      }, 500)
+      }, 2500)
     }
-    if (!fetched.success){
-      console.log(fetched.message)
+    if (!fetched.success) {
+      toast.error(`${fetched.message}`)
     }
   };
 
@@ -66,9 +68,23 @@ export const Login = () => {
         changeEmit={inputHandler}
       />
       <CustomButton
-      design={""}
-      title={"Login"}
-      onClick={loginMe}/>
+        design={""}
+        title={"Login"}
+        onClick={loginMe} />
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        transition:Bounce
+      />
     </div>
   );
 };

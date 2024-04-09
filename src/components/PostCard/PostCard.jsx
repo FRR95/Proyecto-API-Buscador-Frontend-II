@@ -12,7 +12,7 @@ export const PostCard = ({ datePost, userName, title, description,buttonsSection
 
             <div className={buttonsSection} >
                 <div className={buttonEditSection}>
-                    <button onClick={emitEditButton} className={buttonEditDesign}>
+                    <button onClick={emitEditButton} className={buttonEditDesign} data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i className="bi bi-pen"></i>   {buttonEditTitle}
                     </button>
 

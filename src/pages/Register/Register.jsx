@@ -5,6 +5,8 @@ import { CustomInput } from "../../components/CustomInput/CustomInput"
 import { CustomButton } from "../../components/CustomButton/CustomButton"
 import { registerService } from "../../services/apiCalls"
 
+import { ToastContainer, toast } from 'react-toastify';
+
 export const Register = () => {
     const navigate = useNavigate()
     const [userCredentials, setUser] = useState({
@@ -15,22 +17,24 @@ export const Register = () => {
 
     const inputHandler = (e) => {
         setUser((prevState) => ({
-          ...prevState,
-          [e.target.name]: e.target.value,
+            ...prevState,
+            [e.target.name]: e.target.value,
         }));
-      };
+    };
 
-      const signInMe = async()=>{
-        const fetched =await registerService(userCredentials)
+    const signInMe = async () => {
+        const fetched = await registerService(userCredentials)
 
-        if(!fetched.success){
-            console.log(fetched.message)
+        if (!fetched.success) {
+            toast.error(`${fetched.message}`)
         }
 
         setTimeout(() => {
-           navigate("/login") 
-        }, 500);
-      }
+            navigate("/login")
+        }, 2500);
+
+        toast(`${fetched.message} Te llevamos a login`)
+    }
 
     return (
         <div className=" d-flex justify-content-center align-items-center flex-column registerDesign">
@@ -56,6 +60,20 @@ export const Register = () => {
                 design={""}
                 title={"Register"}
                 onClick={signInMe} />
+
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover={false}
+                theme="dark"
+                transition:Bounce
+            />
         </div>
     )
 

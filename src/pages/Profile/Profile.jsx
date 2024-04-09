@@ -102,7 +102,7 @@ export const Profile = () => {
 
 
     } catch (error) {
-      console.log(error);
+      toast.error(`${fetched.message}`)
     }
   };
 
@@ -111,12 +111,14 @@ export const Profile = () => {
   }
 
   const editProfile = async () => {
-    const fetched = await UpdateProfile(rdxUser.credentials.token, user)
+    const fetched = await UpdateProfile(user,rdxUser.credentials.token)
+    
+    console.log(`Credentials ${user.name}`)
     if (!fetched.success) {
-      console.log(fetched.message)
+      toast.error(fetched.message)
     }
 
-    console.log(fetched)
+    toast.warn(fetched.message)
 
     setTimeout(() => {
       getUserProfile()
@@ -128,9 +130,9 @@ export const Profile = () => {
   const createPost = async () => {
     const fetched = await CreatePost(rdxUser.credentials.token, postCredentials)
     if (!fetched.success) {
-      console.log(fetched.message)
+      toast.error(fetched.message)
     }
-    console.log(fetched.message)
+    toast(`✔ ${fetched.message}`)
 
     setPostCredentials({
       title: "",
@@ -143,9 +145,9 @@ export const Profile = () => {
   const deletePost = async (postId) => {
     const fetched = await deleteMyPost(postId, rdxUser.credentials.token)
     if (!fetched.success) {
-      console.log(fetched.message);
+      toast.error(fetched.message)
     }
-    console.log(fetched.message);
+    toast(`🗑 ${fetched.message}`)
     BringPosts()
 
   }
@@ -153,10 +155,10 @@ export const Profile = () => {
   const updatePost = async (postId) => {
     const fetched = await updateMyPost(postId, postCredentials, rdxUser.credentials.token)
     if (!fetched.success) {
-      console.log(fetched.message)
+      toast.error(fetched.message)
     }
 
-    console.log(fetched.message)
+    toast.warn(fetched.message)
     BringPosts()
 
     setPostCredentials({
@@ -173,7 +175,7 @@ export const Profile = () => {
       description: post.description
     })
 
-    console.log(postCredentials)
+  
   }
 
 
@@ -190,7 +192,7 @@ export const Profile = () => {
   const manageDetail = (post) => {
     //1. guardamos en RDX
     const dispatched = dispatch(updatePostDetail({ post }));
-    console.log(dispatched)
+
     //2. navegamos a la vista de detalle
     navigate("/postdetail");
   };
@@ -201,19 +203,37 @@ export const Profile = () => {
       const fetched = await LikeDislikePost(postId, rdxUser.credentials.token)
 
       if (!fetched.success) {
-        console.log(fetched.message)
+        toast.error(`${fetched.message}`)
       }
       toast(`💗 ${fetched.message}`)
       BringPosts()
 
     } catch (error) {
-      console.log(error)
+      toast.error(`${error}`)
     }
   }
 
   return (
     <>
       <div className="d-flex justify-content-center row  align-items-center profileDesign">
+
+      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>Modal Post update</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => UpdateUserInfo()} >{`Editar `}</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
         {editboolean
           ? (
@@ -225,7 +245,7 @@ export const Profile = () => {
                 changeEmit={inputHandler}
               />
               <CustomButton
-                onClick={editProfile}
+                onClick={()=>editProfile(user._id)}
                 design={""}
                 title={`Editar ${user.name}`} />
             </div>)
@@ -322,7 +342,6 @@ export const Profile = () => {
                           datePost={post.createdAt}
                           numberOflikes={post.numberOfLikes.length}
                           emitDeleteButton={() => deletePost(post._id)}
-                          emitEditButton={() => AddInfoToForm(post)}
                           emitDetailButton={() => manageDetail(post)}
                           emitLikeButton={() => likeUnlikePost(post._id)}
                         />

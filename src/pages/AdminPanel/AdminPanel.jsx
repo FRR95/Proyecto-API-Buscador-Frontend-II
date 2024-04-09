@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { userData } from "../../app/slices/userSlice"
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, searchUsers } from "../../services/apiCalls";
+import { UpdateProfile, UpdateUserProfile, deleteUsers, getUsers, searchUsers } from "../../services/apiCalls";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { searchUserData, updateUserCriteria } from "../../app/slices/searchUserSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import { updateProfileDetail } from "../../app/slices/profileDetailSlice";
 export const AdminPanel = () => {
 
     const navigate = useNavigate();
@@ -19,15 +21,15 @@ export const AdminPanel = () => {
 
     const searchHandler = (e) => {
         setCriteria(e.target.value);
-      };
+    };
 
-      useEffect(() => {
+    useEffect(() => {
         const searching = setTimeout(() => {
-          dispatch(updateUserCriteria(criteria));
+            dispatch(updateUserCriteria(criteria));
         }, 375);
-    
+
         return () => clearTimeout(searching);
-      }, [criteria]);
+    }, [criteria]);
 
     useEffect(() => {
         if (!rdxUser.credentials.token) {
@@ -60,12 +62,12 @@ export const AdminPanel = () => {
 
             let fetched
             if (searchUserRdx.criteriaUser !== "") {
-                fetched = await searchUsers(rdxUser.credentials.token,searchUserRdx.criteriaUser); 
+                fetched = await searchUsers(rdxUser.credentials.token, searchUserRdx.criteriaUser);
             }
-            else{
+            else {
                 fetched = await getUsers(rdxUser.credentials.token)
             }
-            
+
             setUsers(fetched.data)
 
 
@@ -88,10 +90,9 @@ export const AdminPanel = () => {
     }, [users])
 
     useEffect(() => {
-      
-                BringUsers()
-         
-console.log(`Criteria users ${searchUserRdx.criteriaUser}`)
+
+        BringUsers()
+
     }, [searchUserRdx.criteriaUser])
 
 
@@ -103,12 +104,12 @@ console.log(`Criteria users ${searchUserRdx.criteriaUser}`)
     }
 
     const UpdateUserInfo = async (userId) => {
-        const fetched = await UpdateProfile(userId, userCredentials, rdxUser.credentials.token)
+        const fetched = await UpdateUserProfile(userId, userCredentials, rdxUser.credentials.token)
         if (!fetched.success) {
-            console.log(fetched.message)
+            toast.error(`${fetched.message}`)
         }
 
-        console.log(fetched.message)
+        toast.warn(`${fetched.message}`)
 
 
         setUserCredentials({
@@ -120,7 +121,30 @@ console.log(`Criteria users ${searchUserRdx.criteriaUser}`)
         BringUsers()
     }
 
+    const manageUserDetail = (user) => {
+        //1. guardamos en RDX
+        const dispatched = dispatch(updateProfileDetail({ user }));
+        console.log(dispatched)
+        //2. navegamos a la vista de detalle
+        navigate("/profiledetail");
+      };
 
+     const DeleteUser =async(userId)=>{
+        try {
+            const fetched = await deleteUsers(userId,rdxUser.credentials.token)
+            if(!fetched.success){
+                toast.error(fetched.message)
+            }
+
+            toast(`🗑 ${fetched.message}`)
+            
+            BringUsers()
+
+
+        } catch (error) {
+            toast.error(error)
+        }
+     }
 
     return (
         <div className="d-flex row    justify-content-center align-items-center adminPanelPageDesign" >
@@ -175,16 +199,34 @@ console.log(`Criteria users ${searchUserRdx.criteriaUser}`)
                                     emitEditButton={() => AddInfoToFormUsers(user)}
                                     buttonDeleteSection={``}
                                     buttonDeleteTitle={`Borrar ${user.name}`}
+                                    emitDeleteButton={() => DeleteUser(user._id)}
                                     buttonDetailSection={``}
                                     buttonDetailTitle={`Ver ${user.name}`}
+                                    emitDetailButton={() => manageUserDetail(user)}
                                 />
                             </div>
+
+
 
                         </>
                     )
                 }
             )
             }
+
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover={false}
+                theme="dark"
+                transition:Bounce
+            />
         </div>
     )
 }

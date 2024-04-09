@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 import { LikeDislikePost, getTimeline } from "../../services/apiCalls";
 import { PostCard } from "../../components/PostCard/PostCard";
+
+import { ToastContainer, toast } from 'react-toastify';
+
 export const Home = () => {
   //Instancia de Redux en modo lectura para home
 
@@ -21,7 +24,7 @@ export const Home = () => {
    
 
     } catch (error) {
-      console.log(error)
+      toast.error(error)
     }
 
   }
@@ -47,13 +50,13 @@ export const Home = () => {
       const fetched =await LikeDislikePost(postId,rdxUser.credentials.token)
     
       if(!fetched.success){
-        console.log(fetched.message)
+        toast.error(`${fetched.message}`)
       }
-      console.log(fetched.message)
+      toast(`💗 ${fetched.message}`)
       BringTimelinePosts()
     
     } catch (error) {
-      console.log(error)
+      toast.error(error)
     }
       }
 
@@ -82,7 +85,7 @@ export const Home = () => {
                   buttonLikeSection={"d-flex justify-content-end"}
                   emitLikeButton={() => likeUnlikePost(post._id)}
                   numberOflikes={post.numberOfLikes.length}
-                  userName={post.userId.email}
+                  // userName={post.userId.email}
                
                   />
                   </>
@@ -95,8 +98,22 @@ export const Home = () => {
           }
         </div>)
 
-      }
+        
 
+      }
+     <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        transition:Bounce
+      />
     </>
 
   )

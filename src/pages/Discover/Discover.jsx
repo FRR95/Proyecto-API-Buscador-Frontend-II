@@ -3,12 +3,13 @@ import { userData } from "../../app/slices/userSlice"
 import { useSelector, useDispatch } from "react-redux";
 import "./Discover.css"
 import { useEffect, useState } from "react";
-import { UpdateProfile, deleteMyPost, getPosts, getUsers } from "../../services/apiCalls";
+import { LikeDislikePost, UpdateProfile, deleteMyPost, getPosts, getUsers } from "../../services/apiCalls";
 import { PostCard } from "../../components/PostCard/PostCard";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { updatePostDetail } from "../../app/slices/postDetailSlice";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
 import { updateProfileDetail } from "../../app/slices/profileDetailSlice";
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Discover = () => {
   const dispatch = useDispatch();
@@ -18,8 +19,8 @@ export const Discover = () => {
   const [users, setUsers] = useState([])
   const [userCredentials, setUserCredentials] = useState(
     {
-      _id:"",
-      name:""
+      _id: "",
+      name: ""
     }
   )
 
@@ -45,7 +46,7 @@ export const Discover = () => {
 
       const fetched = await getUsers(rdxUser.credentials.token)
       setUsers(fetched.data)
-      
+
 
 
     } catch (error) {
@@ -96,9 +97,9 @@ export const Discover = () => {
   const DeletePost = async (postId) => {
     const fetched = await deleteMyPost(postId, rdxUser.credentials.token)
     if (!fetched.success) {
-      console.log(fetched.message);
+      toast.error(`${fetched.message}`)
     }
-    console.log(fetched.message);
+    toast(`🗑 ${fetched.message}`)
     BringPosts()
 
   }
@@ -118,14 +119,50 @@ export const Discover = () => {
   };
 
 
+  const UpdateUserInfo = () => {
+    console.log(`Hola update`)
+  }
 
 
+  const likeUnlikePost = async (postId) => {
+
+    try {
+      const fetched = await LikeDislikePost(postId, rdxUser.credentials.token)
+
+      if (!fetched.success) {
+        toast.error(`${fetched.message}`)
+      }
+      toast(`💗 ${fetched.message}`)
+      BringPosts()
+
+    } catch (error) {
+      toast.error(`${error}`)
+    }
+  }
 
 
 
 
   return (
     <div className="d-flex row    justify-content-center align-items-center discoverPageDesign">
+
+      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>Modal Post update</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => UpdateUserInfo()} >{`Editar `}</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
       {posts.length > 0
@@ -177,12 +214,14 @@ export const Discover = () => {
                       <PostCard
                         buttonsSection={rdxUser?.credentials?.user?.roleName === "admin" ? ("d-flex justify-content-start") : ("d-none")}
                         buttonLikeSection={"d-flex justify-content-end"}
+                        emitLikeButton={() => likeUnlikePost(post._id)}
                         buttonDeleteSection={"d-flex justify-content-center m-1   align-items-center"}
                         buttonDeleteTitle={"Borrar post"}
                         buttonEditSection={"d-flex justify-content-center m-1   align-items-center"}
                         buttonEditTitle={"Editar post"}
                         buttonDetailSection={"d-flex justify-content-center m-1  align-items-center"}
                         buttonDetailTitle={"Ver post"}
+                        // userName={post.userId.email}
                         title={post.title}
                         description={post.description}
                         datePost={post.createdAt}
@@ -200,6 +239,20 @@ export const Discover = () => {
           </div>)
         : (<p>No tienes posts aun</p>)
       }
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+        transition:Bounce
+      />
     </div>
   )
 }
