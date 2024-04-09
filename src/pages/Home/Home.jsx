@@ -82,6 +82,7 @@ export const Home = () => {
                   buttonLikeSection={"d-flex justify-content-end"}
                   emitLikeButton={() => likeUnlikePost(post._id)}
                   numberOflikes={post.numberOfLikes.length}
+                  userName={post.userId.email}
                
                   />
                   </>

@@ -6,6 +6,7 @@
     margin: 1em;
 
     transition: 0.3s;
+    user-select: none;
 }
 
 .clink-design:hover {

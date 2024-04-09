@@ -3,15 +3,31 @@ import { useNavigate } from "react-router-dom";
 import { userData } from "../../app/slices/userSlice"
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers } from "../../services/apiCalls";
+import { getUsers, searchUsers } from "../../services/apiCalls";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
+import { searchUserData, updateUserCriteria } from "../../app/slices/searchUserSlice";
 export const AdminPanel = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const rdxUser = useSelector(userData)
+    const searchUserRdx = useSelector(searchUserData);
+
+    const [criteria, setCriteria] = useState("");
+
+    const searchHandler = (e) => {
+        setCriteria(e.target.value);
+      };
+
+      useEffect(() => {
+        const searching = setTimeout(() => {
+          dispatch(updateUserCriteria(criteria));
+        }, 375);
+    
+        return () => clearTimeout(searching);
+      }, [criteria]);
 
     useEffect(() => {
         if (!rdxUser.credentials.token) {
@@ -42,8 +58,14 @@ export const AdminPanel = () => {
     const BringUsers = async () => {
         try {
 
-
-            const fetched = await getUsers(rdxUser.credentials.token)
+            let fetched
+            if (searchUserRdx.criteriaUser !== "") {
+                fetched = await searchUsers(rdxUser.credentials.token,searchUserRdx.criteriaUser); 
+            }
+            else{
+                fetched = await getUsers(rdxUser.credentials.token)
+            }
+            
             setUsers(fetched.data)
 
 
@@ -54,6 +76,8 @@ export const AdminPanel = () => {
 
     }
 
+
+
     useEffect(() => {
         if (rdxUser?.credentials.token) {
             if (users.length === 0) {
@@ -63,30 +87,37 @@ export const AdminPanel = () => {
 
     }, [users])
 
+    useEffect(() => {
+      
+                BringUsers()
+         
+console.log(`Criteria users ${searchUserRdx.criteriaUser}`)
+    }, [searchUserRdx.criteriaUser])
+
 
     const AddInfoToFormUsers = async (user) => {
         setUserCredentials({
-          _id:user._id,
-           name: user.name
+            _id: user._id,
+            name: user.name
         })
     }
-    
+
     const UpdateUserInfo = async (userId) => {
-      const fetched = await UpdateProfile(userId,userCredentials, rdxUser.credentials.token)
-      if (!fetched.success){
+        const fetched = await UpdateProfile(userId, userCredentials, rdxUser.credentials.token)
+        if (!fetched.success) {
+            console.log(fetched.message)
+        }
+
         console.log(fetched.message)
-      }
-    
-      console.log(fetched.message)
-     
-    
-      setUserCredentials({
-        _id:"",
-        name: "",
-    
-      })
-      
-      BringUsers()
+
+
+        setUserCredentials({
+            _id: "",
+            name: "",
+
+        })
+
+        BringUsers()
     }
 
 
@@ -101,7 +132,7 @@ export const AdminPanel = () => {
                             <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                             <CustomInput
                                 placeholder={"Name"}
                                 type={"text"}
@@ -110,7 +141,7 @@ export const AdminPanel = () => {
                                 changeEmit={inputUserHandler}
                             />
                         </div>
-                        <div class="modal-footer">
+                        <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => UpdateUserInfo(userCredentials._id)} >{`Editar ${userCredentials.name}`}</button>
                         </div>
@@ -118,6 +149,15 @@ export const AdminPanel = () => {
                 </div>
             </div>
             <h3 className="mt-5">Ver usuarios</h3>
+
+            <CustomInput
+                placeholder={"Buscar usuarios por email"}
+                type={"email"}
+                name={"email"}
+                value={criteria || ""}
+                changeEmit={searchHandler}
+            />
+
             {users.map(
                 user => {
                     return (
