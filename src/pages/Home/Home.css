@@ -1,4 +1,11 @@
 .home-design {
     min-height: 88vh;
     background-color: #1CC4F7;
+    margin: 0;
+    padding: 0;
+}
+
+.rightBlockDesign{
+    background-color: #7adaf7;
+    border: 1px solid azure;
 }
