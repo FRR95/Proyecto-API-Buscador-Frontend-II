@@ -58,12 +58,14 @@ export const Login = () => {
       <CustomInput
         type="email"
         name="email"
+        design="input-design"
         value={user.email || ""}
         changeEmit={inputHandler}
       />
       <CustomInput
         type="password"
         name="password"
+        design="input-design"
         value={user.password || ""}
         changeEmit={inputHandler}
       />

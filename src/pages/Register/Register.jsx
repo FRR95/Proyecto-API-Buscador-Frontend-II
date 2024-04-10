@@ -41,18 +41,21 @@ export const Register = () => {
             <CustomInput
                 type="text"
                 name="name"
+                design="input-design"
                 value={userCredentials.name || ""}
                 changeEmit={inputHandler}
             />
             <CustomInput
                 type="email"
                 name="email"
+                design="input-design"
                 value={userCredentials.email || ""}
                 changeEmit={inputHandler}
             />
             <CustomInput
                 type="password"
                 name="password"
+                design="input-design"
                 value={userCredentials.password || ""}
                 changeEmit={inputHandler}
             />
