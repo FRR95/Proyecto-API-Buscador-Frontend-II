@@ -23,7 +23,7 @@ export const PostDetail =()=>{
            <PostDetailCard
            title={detailRdx?.post.title}
            description={detailRdx?.post.description}
-           datePost={detailRdx?.post.createdAt}
+           datePost={new Date(detailRdx?.post.createdAt).toDateString()}
            dateUpdatedPost={detailRdx?.post.updatedAt}
            IdPost={detailRdx?.post._id}
            numberOflIkes={detailRdx?.post.numberOfLikes.length}

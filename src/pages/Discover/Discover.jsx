@@ -3,7 +3,7 @@ import { userData } from "../../app/slices/userSlice"
 import { useSelector, useDispatch } from "react-redux";
 import "./Discover.css"
 import { useEffect, useState } from "react";
-import { LikeDislikePost, UpdateProfile, deleteMyPost, getPosts, getUsers } from "../../services/apiCalls";
+import { LikeDislikePost, UpdateProfile, deleteMyPost, getPosts, getUsers, updateMyPost } from "../../services/apiCalls";
 import { PostCard } from "../../components/PostCard/PostCard";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { updatePostDetail } from "../../app/slices/postDetailSlice";
@@ -17,19 +17,23 @@ export const Discover = () => {
   const rdxUser = useSelector(userData)
   const [posts, setPosts] = useState([])
   const [users, setUsers] = useState([])
-  const [userCredentials, setUserCredentials] = useState(
-    {
-      _id: "",
-      name: ""
-    }
-  )
 
-  const inputUserHandler = (e) => {
-    setUserCredentials((prevState) => ({
+
+  const [postCredentials, setPostCredentials] = useState({
+    _id: "",
+    title: "",
+    description: "",
+  });
+
+  const postHandler = (e) => {
+    console.log(e.target.value)
+    setPostCredentials((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
+
+
 
 
 
@@ -119,8 +123,20 @@ export const Discover = () => {
   };
 
 
-  const UpdateUserInfo = () => {
-    console.log(`Hola update`)
+  const updatePost = async(postId) => {
+    const fetched = await updateMyPost(postId, postCredentials, rdxUser.credentials.token)
+    if (!fetched.success) {
+      toast.error(fetched.message)
+    }
+
+    toast.warn(fetched.message)
+    BringPosts()
+
+    setPostCredentials({
+      _id: "",
+      title: "",
+      description: ""
+    })
   }
 
 
@@ -140,13 +156,23 @@ export const Discover = () => {
     }
   }
 
+  const AddInfoToForm = async (post) => {
+    setPostCredentials({
+      _id: post._id,
+      title: post.title,
+      description: post.description
+    })
 
+    console.log(postCredentials)
+
+  
+  }
 
 
   return (
     <div className="d-flex row    justify-content-center align-items-center discoverPageDesign">
 
-      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="exampleModalPost" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -155,10 +181,25 @@ export const Discover = () => {
             </div>
             <div className="modal-body">
               <p>Modal Post update</p>
+
+              <CustomInput
+              type="text"
+              name="title"
+              design={"input-design"}
+              value={postCredentials.title || ""}
+              changeEmit={postHandler}
+            />
+              <CustomInput
+              type="text"
+              name="description"
+              design={"input-design-big"}
+              value={postCredentials.description || ""}
+              changeEmit={postHandler}
+            />
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => UpdateUserInfo()} >{`Editar `}</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} >{`Editar `}</button>
             </div>
           </div>
         </div>
@@ -228,6 +269,7 @@ export const Discover = () => {
                         numberOflikes={post.numberOfLikes.length}
                         emitDeleteButton={() => DeletePost(post._id)}
                         emitDetailButton={() => manageDetail(post)}
+                        emitEditButton={() => AddInfoToForm(post)}
                       />
                     </div>
 

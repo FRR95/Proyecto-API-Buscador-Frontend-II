@@ -4,3 +4,40 @@
     border: 1px solid azure;
     padding: 2em;
 }
+
+.buttonEditDesign{
+    background-color: yellow;
+    transition: 0.5s;
+}
+.buttonEditDesign:hover{
+    background-color: rgb(202, 202, 10);
+    transition: 0.5s;
+    
+}
+.buttonDetailDesign{
+    background-color: rgb(35, 112, 255);
+    transition: 0.5s;
+}
+.buttonDetailDesign:hover{
+    background-color: rgb(29, 85, 190);
+    transition: 0.5s;
+
+}
+.buttonDeleteDesign{
+    background-color: rgb(246, 81, 76);
+    transition: 0.5s;
+}
+.buttonDeleteDesign:hover{
+    background-color: rgb(246, 62, 56);
+    transition: 0.5s;
+
+}
+.buttonLikeDesign{
+    background-color: rgb(232, 76, 246);
+    transition: 0.5s;
+}
+.buttonLikeDesign:hover{
+    background-color: rgb(232, 53, 248);
+    transition: 0.5s;
+
+}

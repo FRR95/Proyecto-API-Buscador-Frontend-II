@@ -12,24 +12,24 @@ export const PostCard = ({ datePost, userName, title, description,buttonsSection
 
             <div className={buttonsSection} >
                 <div className={buttonEditSection}>
-                    <button onClick={emitEditButton} className={buttonEditDesign} data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i className="bi bi-pen"></i>   {buttonEditTitle}
+                    <button onClick={emitEditButton} className="buttonEditDesign" data-bs-toggle="modal" data-bs-target="#exampleModalPost">
+                    <i className="bi bi-pen-fill"></i>   {buttonEditTitle}
                     </button>
 
                 </div>
                 <div className={buttonDetailSection}>
-                    <button onClick={emitDetailButton} className={buttonDetailDesign}>
+                    <button onClick={emitDetailButton} className="buttonDetailDesign">
                     <i className="bi bi-eye"></i>  {buttonDetailTitle}
                     </button>
                 </div>
                 <div className={buttonDeleteSection}>
-                    <button onClick={emitDeleteButton} className={buttonDeleteDesign}>
+                    <button onClick={emitDeleteButton} className="buttonDeleteDesign">
                     <i className="bi bi-trash3"></i>   {buttonDeleteTitle}
                     </button>
                 </div>
             </div>
             <div className={buttonLikeSection}>
-            <button onClick={emitLikeButton} className={buttonLikeDesign}>
+            <button onClick={emitLikeButton} className="buttonLikeDesign">
             <i className="bi bi-heart-fill"></i> {numberOflikes}
             </button>
             </div>

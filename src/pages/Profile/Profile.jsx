@@ -20,7 +20,7 @@ export const Profile = () => {
   const rdxUser = useSelector(userData)
 
   const [loadedData, setLoadedData] = useState(false);
-  const [editboolean, setEditBoolean] = useState(false);
+
 
 
 
@@ -47,6 +47,7 @@ export const Profile = () => {
   });
 
   const postHandler = (e) => {
+    
     setPostCredentials((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -106,9 +107,7 @@ export const Profile = () => {
     }
   };
 
-  const changeboolean = () => {
-    setEditBoolean(true)
-  }
+
 
   const editProfile = async () => {
     const fetched = await UpdateProfile(user,rdxUser.credentials.token)
@@ -122,7 +121,7 @@ export const Profile = () => {
 
     setTimeout(() => {
       getUserProfile()
-      setEditBoolean(false)
+      
     }, 500);
 
   }
@@ -175,6 +174,15 @@ export const Profile = () => {
       description: post.description
     })
 
+  console.log(postCredentials)
+  }
+  const ClearForm = async (post) => {
+    setPostCredentials({
+      _id: "",
+      title: "",
+      description: ""
+    })
+
   
   }
 
@@ -217,7 +225,7 @@ export const Profile = () => {
     <>
       <div className="d-flex justify-content-center row  align-items-center profileDesign">
 
-      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="exampleModalProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -225,31 +233,57 @@ export const Profile = () => {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <p>Modal Post update</p>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => UpdateUserInfo()} >{`Editar `}</button>
-            </div>
-          </div>
-        </div>
-      </div>
+              <p>Modal Profile update</p>
 
-        {editboolean
-          ? (
-            <div className="d-flex justify-content-center flex-column  align-items-center">
               <CustomInput
                 type="text"
                 name="name"
                 value={user.name || ""}
                 changeEmit={inputHandler}
               />
-              <CustomButton
-                onClick={()=>editProfile(user._id)}
-                design={""}
-                title={`Editar ${user.name}`} />
-            </div>)
-          : (
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=>editProfile(user._id)} >{`Editar `}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="modal fade" id="exampleModalPost" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" onClick={ClearForm} aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <p>Modal Post update</p>
+
+              <CustomInput
+              type="text"
+              name="title"
+              design={"input-design"}
+              value={postCredentials.title || ""}
+              changeEmit={postHandler}
+            />
+              <CustomInput
+              type="text"
+              name="description"
+              design={"input-design-big"}
+              value={postCredentials.description || ""}
+              changeEmit={postHandler}
+            />
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={ClearForm} data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} >{`Editar `}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        
 
             <div className="d-flex justify-content-center row  align-items-center">
               <ProfileCard
@@ -271,13 +305,12 @@ export const Profile = () => {
                 numberOfFollowers={user.followers.length}
                 buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
                 numberOfFollowing={user.following.length}
-                emitEditButton={changeboolean}
 
 
               />
-            </div>)
+            </div>
 
-        }
+        
 
         <div className="d-flex mt-5 justify-content-center row  align-items-center">
           <div className="d-flex justify-content-center row  align-items-center">
@@ -307,12 +340,6 @@ export const Profile = () => {
               title={`Post`}
               icon={"bi bi-sticky-fill"}
             />
-            <CustomButton
-              onClick={() => updatePost(postCredentials._id)}
-              design={"m-1"}
-              title={`Edit Post`}
-              icon={"bi bi-pen-fill"}
-            />
           </div>
         </div>
 
@@ -341,6 +368,7 @@ export const Profile = () => {
                           description={post.description}
                           datePost={post.createdAt}
                           numberOflikes={post.numberOfLikes.length}
+                          emitEditButton={() => AddInfoToForm(post)}
                           emitDeleteButton={() => deletePost(post._id)}
                           emitDetailButton={() => manageDetail(post)}
                           emitLikeButton={() => likeUnlikePost(post._id)}

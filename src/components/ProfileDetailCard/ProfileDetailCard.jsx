@@ -28,7 +28,7 @@ export const ProfileDetailCard =({username,email,createdAt,numberOfFollowers,num
             </div>
 
             <div className={"d-flex row justify-content-center align-items-center"}>
-                <button onClick={buttonFollowUnfollowEmit} className={buttonFollowUnfollowDesign} >
+                <button onClick={buttonFollowUnfollowEmit} className="buttonDetailDesign" >
                 <i className="bi bi-person-fill"></i> {buttonFollowUnfollowTitle} 
                 </button>
             </div>
