@@ -5,5 +5,19 @@
 .input-design{
   
     width: 30em;
-    margin-bottom: 1em;
+    border: 0.2em solid black;
+    border-radius: 0.5em;
+    margin: 1em;
+    
 }
+.input-designError {
+    border: 0.2em solid red;
+  }
+
+.input-design:focus {
+  
+  
+    outline: none;
+    
+  
+    }

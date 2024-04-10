@@ -1,7 +1,7 @@
 
 import "./CustomInput.css"
 
-export const CustomInput = ({ type, name, value, changeEmit, design, placeholder }) => {
+export const CustomInput = ({ type, name, value, changeEmit, design, placeholder,onBlurFunction }) => {
 
     return (
 
@@ -12,6 +12,7 @@ export const CustomInput = ({ type, name, value, changeEmit, design, placeholder
             name={name}
             value={value}
             onChange={(e) => changeEmit(e)}
+            onBlur={onBlurFunction}
         />
     )
 }

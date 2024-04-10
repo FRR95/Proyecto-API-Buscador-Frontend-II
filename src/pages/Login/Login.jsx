@@ -12,6 +12,8 @@ import { login } from "../../app/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
 import { CustomButton } from "../../components/CustomButton/CustomButton";
+import { validame } from "../../utils/functions";
+import { CustomLink } from "../../components/CustomLink/CustomLink";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -28,6 +30,20 @@ export const Login = () => {
     setUser((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
+    }));
+  };
+
+  const [credencialesError, setCredencialesError] = useState({
+    emailError: "",
+    passwordError: "",
+  });
+
+  const checkError = (e) => {
+    const error = validame(e.target.name, e.target.value);
+
+    setCredencialesError((prevState) => ({
+      ...prevState,
+      [e.target.name + "Error"]: error,
     }));
   };
 
@@ -55,38 +71,48 @@ export const Login = () => {
 
   return (
     <div className="d-flex justify-content-center flex-column align-items-center login-design">
-      <CustomInput
-        type="email"
-        name="email"
-        design="input-design"
-        value={user.email || ""}
-        changeEmit={inputHandler}
-      />
-      <CustomInput
-        type="password"
-        name="password"
-        design="input-design"
-        value={user.password || ""}
-        changeEmit={inputHandler}
-      />
-      <CustomButton
-        design={""}
-        title={"Login"}
-        onClick={loginMe} />
+      <div className=" d-flex p-5 justify-content-center align-items-center flex-column registerBoxDesign">
+        <h1>INICIA SESIÓN</h1>
+        <CustomInput
+          type="email"
+          name="email"
+          design={`input-design ${credencialesError.emailError !== "" ? "input-designError" : ""
+            }`}
+          value={user.email || ""}
+          changeEmit={inputHandler}
+          onBlurFunction={(e) => checkError(e)}
+        />
+        <div className="error">{credencialesError.emailError}</div>
+        <CustomInput
+          type="password"
+          name="password"
+          design={`input-design ${credencialesError.passwordError !== "" ? "input-designError" : ""
+            }`}
+          value={user.password || ""}
+          changeEmit={inputHandler}
+          onBlurFunction={(e) => checkError(e)}
+        />
+        <div className="error">{credencialesError.passwordError}</div>
+        <CustomButton
+          design={""}
+          title={"Login"}
+          onClick={loginMe} />
+          <p>¿No tienes cuenta aún? <CustomLink path={"/login"} title={"Regístrate"}/></p>
 
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover={false}
-        theme="dark"
-        transition:Bounce
-      />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover={false}
+          theme="dark"
+          transition:Bounce
+        />
+      </div>
     </div>
   );
 };

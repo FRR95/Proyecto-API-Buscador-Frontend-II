@@ -6,6 +6,8 @@ import { CustomButton } from "../../components/CustomButton/CustomButton"
 import { registerService } from "../../services/apiCalls"
 
 import { ToastContainer, toast } from 'react-toastify';
+import { validame } from "../../utils/functions"
+import { CustomLink } from "../../components/CustomLink/CustomLink"
 
 export const Register = () => {
     const navigate = useNavigate()
@@ -19,6 +21,21 @@ export const Register = () => {
         setUser((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
+        }));
+    };
+
+    const [userError, setUserError] = useState({
+        nameError: "",
+        emailError: "",
+        passwordError: "",
+    });
+
+    const checkError = (e) => {
+        const error = validame(e.target.name, e.target.value);
+
+        setUserError((prevState) => ({
+            ...prevState,
+            [e.target.name + "Error"]: error,
         }));
     };
 
@@ -38,45 +55,59 @@ export const Register = () => {
 
     return (
         <div className=" d-flex justify-content-center align-items-center flex-column registerDesign">
-            <CustomInput
-                type="text"
-                name="name"
-                design="input-design"
-                value={userCredentials.name || ""}
-                changeEmit={inputHandler}
-            />
-            <CustomInput
-                type="email"
-                name="email"
-                design="input-design"
-                value={userCredentials.email || ""}
-                changeEmit={inputHandler}
-            />
-            <CustomInput
-                type="password"
-                name="password"
-                design="input-design"
-                value={userCredentials.password || ""}
-                changeEmit={inputHandler}
-            />
-            <CustomButton
-                design={""}
-                title={"Register"}
-                onClick={signInMe} />
+            <div className=" d-flex p-5 justify-content-center align-items-center flex-column registerBoxDesign">
+                <h1>REGÍSTRATE</h1>
+                <CustomInput
+                    type="text"
+                    name="name"
+                    design={`input-design ${userError.nameError !== "" ? "input-designError" : ""
+                        }`}
+                    value={userCredentials.name || ""}
+                    changeEmit={inputHandler}
+                    onBlurFunction={(e) => checkError(e)}
+                />
+                <div className="error">{userError.nameError}</div>
+                <CustomInput
+                    type="email"
+                    name="email"
+                    design={`input-design ${userError.emailError !== "" ? "input-designError" : ""
+                        }`}
+                    value={userCredentials.email || ""}
+                    changeEmit={inputHandler}
+                    onBlurFunction={(e) => checkError(e)}
+                />
+                <div className="error">{userError.emailError}</div>
+                <CustomInput
+                    type="password"
+                    name="password"
+                    design={`input-design ${userError.passwordError !== "" ? "input-designError" : ""
+                        }`}
+                    value={userCredentials.password || ""}
+                    changeEmit={inputHandler}
+                    onBlurFunction={(e) => checkError(e)}
+                />
+                <div className="error">{userError.passwordError}</div>
+                <CustomButton
+                    design={""}
+                    title={"Register"}
+                    onClick={signInMe} />
 
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss={false}
-                draggable
-                pauseOnHover={false}
-                theme="dark"
-                transition:Bounce
-            />
+                    <p>¿Ya tienes cuenta? <CustomLink path={"/login"} title={"Inicia sesión"}/></p>
+
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover={false}
+                    theme="dark"
+                    transition:Bounce
+                />
+            </div>
         </div>
     )
 
