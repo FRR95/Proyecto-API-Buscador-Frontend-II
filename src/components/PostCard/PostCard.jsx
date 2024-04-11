@@ -1,13 +1,13 @@
 import "./PostCard.css"
 
-export const PostCard = ({ datePost, userName, title, description, buttonsSection, buttonEditSection, emitEditButton, buttonEditDesign, buttonEditTitle, buttonDetailSection, emitDetailButton, buttonDetailDesign, buttonDetailTitle, buttonDeleteSection, emitDeleteButton, buttonDeleteDesign, buttonDeleteTitle, buttonLikeSection, numberOflikes, emitLikeButton, buttonLikeDesign, key }) => {
+export const PostCard = ({ datePost, userName, title, description, buttonsSection, buttonEditSection, emitEditButton, buttonEditDesign, buttonEditTitle, buttonDetailSection, emitDetailButton, buttonDetailDesign, buttonDetailTitle, buttonDeleteSection, emitDeleteButton, buttonDeleteDesign, buttonDeleteTitle, buttonLikeSection, numberOflikes, emitLikeButton, buttonLikeDesign,onClickUserName, key }) => {
     return (
         <div key={key} className="d-flex row m-5 justify-content-center align-items-center postCardDesign">
             <div className="d-flex row justify-content-center align-items-center">
 
                 <div  className="d-flex row justify-content-start align-items-center" ><img src="https://navchetnanirmanfoundation.in/img/User-Profile-PNG-Image.png" className="imgProfileSm"    alt="img-profile"/></div>
                 
-                <h5 className="d-flex row justify-content-start align-items-center">{userName}</h5>
+                <h5 onClick={onClickUserName} className="d-flex row justify-content-start align-items-center usernameHover">{userName}</h5>
                 <h5 className="d-flex row justify-content-start align-items-center">{title}</h5>
                 <p className="d-flex row justify-content-start align-items-center">{description} </p>
                 <p className="d-flex row justify-content-end align-items-center">{datePost} </p>

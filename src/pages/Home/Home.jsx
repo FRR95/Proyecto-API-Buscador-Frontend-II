@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfileDetail } from "../../app/slices/profileDetailSlice";
 import "./Home.css";
-import { useSelector } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 import { LikeDislikePost, getTimeline } from "../../services/apiCalls";
 import { PostCard } from "../../components/PostCard/PostCard";
@@ -12,6 +14,8 @@ export const Home = () => {
   //Instancia de Redux en modo lectura para home
 
   const rdxUser = useSelector(userData)
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
 
   const [followingPost, setFollowingPost] = useState([])
 
@@ -62,7 +66,13 @@ export const Home = () => {
   }
 
 
-
+  const manageUserDetail = (user) => {
+    //1. guardamos en RDX
+    const dispatched = dispatch(updateProfileDetail({ user }));
+    console.log(dispatched)
+    //2. navegamos a la vista de detalle
+    navigate("/profiledetail");
+  };
 
 
 
@@ -96,11 +106,12 @@ export const Home = () => {
 
                         title={post.title}
                         description={post.description}
+                        onClickUserName={() => manageUserDetail(post.userId)}
                         buttonsSection={"d-none"}
                         buttonLikeSection={"d-flex justify-content-end"}
                         emitLikeButton={() => likeUnlikePost(post._id)}
                         numberOflikes={post.numberOfLikes.length}
-                        userName={post.userId.email}
+                        userName={post.userId.name}
                         datePost={new Date(post.createdAt).toDateString()}
 
                       />

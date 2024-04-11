@@ -178,6 +178,7 @@ export const AdminPanel = () => {
                 placeholder={"Buscar usuarios por email"}
                 type={"email"}
                 name={"email"}
+                design={"input-design"}
                 value={criteria || ""}
                 changeEmit={searchHandler}
             />

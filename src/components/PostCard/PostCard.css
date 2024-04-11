@@ -46,3 +46,8 @@
 .imgProfileSm{
     width: 15em;
 }
+
+.usernameHover:hover{
+    cursor: pointer;
+    text-decoration-line: underline;
+}

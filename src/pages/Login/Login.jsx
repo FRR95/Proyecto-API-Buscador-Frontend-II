@@ -73,9 +73,11 @@ export const Login = () => {
     <div className="d-flex justify-content-center flex-column align-items-center login-design">
       <div className=" d-flex p-5 justify-content-center align-items-center flex-column registerBoxDesign">
         <h1>INICIA SESIÓN</h1>
+        <label>Email</label>
         <CustomInput
           type="email"
           name="email"
+          placeholder={"Email"}
           design={`input-design ${credencialesError.emailError !== "" ? "input-designError" : ""
             }`}
           value={user.email || ""}
@@ -83,9 +85,11 @@ export const Login = () => {
           onBlurFunction={(e) => checkError(e)}
         />
         <div className="error">{credencialesError.emailError}</div>
+        <label>Password</label>
         <CustomInput
           type="password"
           name="password"
+          placeholder={"Password"}
           design={`input-design ${credencialesError.passwordError !== "" ? "input-designError" : ""
             }`}
           value={user.password || ""}
@@ -97,7 +101,7 @@ export const Login = () => {
           design={""}
           title={"Login"}
           onClick={loginMe} />
-          <p>¿No tienes cuenta aún? <CustomLink path={"/login"} title={"Regístrate"}/></p>
+        <p>¿No tienes cuenta aún? <CustomLink path={"/login"} title={"Regístrate"} /></p>
 
         <ToastContainer
           position="top-center"

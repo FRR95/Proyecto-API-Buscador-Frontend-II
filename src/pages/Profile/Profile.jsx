@@ -234,7 +234,7 @@ export const Profile = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
-             
+
 
                 <CustomInput
                   type="text"
@@ -271,7 +271,7 @@ export const Profile = () => {
                 <TextArea
                   type="text"
                   name="description"
-                  design={"input-design-big"}
+                  design={"input-design"}
                   value={postCredentials.description || ""}
                   changeEmit={postHandler}
                 />
@@ -282,64 +282,68 @@ export const Profile = () => {
             </div>
           </div>
         </div>
+        <div className="d-flex justify-content-center row    align-items-center">
+          <div className="d-flex justify-content-center  col-xl  col-lg  row-sm row-xs   align-items-center">
+            <div className="d-flex justify-content-center row  align-items-center">
+              <ProfileCard
+                idUser={"idUser"}
+                key={"key"}
+                username={user.name}
+                email={user.email}
+                buttonSectionDesign={"d-flex row justify-content-center align-items-center"}
+
+                buttonDeleteSection={"d-none"}
+                buttonDetailSection={"d-none"}
+                buttonEditSection={"d-flex col justify-content-center align-items-center"}
+                buttonEditTitle={`Editar ${user.name}`}
+
+                buttonEditDesign={"buttonEditDesign"}
+
+                followFollowingSection={"d-flex row justify-content-center align-items-center"}
+                buttonFollowerSection={"d-flex col justify-content-center align-items-center"}
+                numberOfFollowers={user.followers.length}
+                buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
+                numberOfFollowing={user.following.length}
 
 
-        <div className="d-flex justify-content-center row  align-items-center">
-          <ProfileCard
-            idUser={"idUser"}
-            key={"key"}
-            username={user.name}
-            email={user.email}
-            buttonSectionDesign={"d-flex row justify-content-center align-items-center"}
-
-            buttonDeleteSection={"d-none"}
-            buttonDetailSection={"d-none"}
-            buttonEditSection={"d-flex col justify-content-center align-items-center"}
-            buttonEditTitle={`Editar ${user.name}`}
-
-            buttonEditDesign={"buttonEditDesign"}
-
-            followFollowingSection={"d-flex row justify-content-center align-items-center"}
-            buttonFollowerSection={"d-flex col justify-content-center align-items-center"}
-            numberOfFollowers={user.followers.length}
-            buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
-            numberOfFollowing={user.following.length}
-
-
-          />
-        </div>
+              />
+            </div>
 
 
 
-        <div className="d-flex mt-5 justify-content-center row  align-items-center">
-          <div className="d-flex justify-content-center row  align-items-center">
-            <p>Titulo</p>
-            <CustomInput
-              type="text"
-              name="title"
-              design={"input-design"}
-              value={postCredentials.title || ""}
-              changeEmit={postHandler}
-            />
+
+            <div className="d-flex mt-5 justify-content-center row  align-items-center">
+              <div className="d-flex justify-content-center row  align-items-center">
+                <p>Titulo</p>
+                <CustomInput
+                  type="text"
+                  name="title"
+                  design={"input-design"}
+                  value={postCredentials.title || ""}
+                  changeEmit={postHandler}
+                />
+              </div>
+              <div className="d-flex justify-content-center row  align-items-center">
+                <p>Descripción</p>
+                <TextArea
+                  type="text"
+                  name="description"
+                  design={"input-design"}
+                  value={postCredentials.description || ""}
+                  changeEmit={postHandler}
+                />
+              </div>
+              <div className="d-flex justify-content-center   align-items-center">
+                <CustomButton
+                  onClick={createPost}
+                  design={"m-1 buttonDetailDesign"}
+                  title={`Post`}
+                  icon={"bi bi-sticky-fill"}
+                />
+              </div>
+            </div>
           </div>
-          <div className="d-flex justify-content-center row  align-items-center">
-            <p>Descripción</p>
-            <TextArea
-              type="text"
-              name="description"
-              design={"input-design-big"}
-              value={postCredentials.description || ""}
-              changeEmit={postHandler}
-            />
-          </div>
-          <div className="d-flex justify-content-center   align-items-center">
-            <CustomButton
-              onClick={createPost}
-              design={"m-1 buttonDetailDesign"}
-              title={`Post`}
-              icon={"bi bi-sticky-fill"}
-            />
-          </div>
+
         </div>
 
 

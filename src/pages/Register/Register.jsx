@@ -57,9 +57,11 @@ export const Register = () => {
         <div className=" d-flex justify-content-center align-items-center flex-column registerDesign">
             <div className=" d-flex p-5 justify-content-center align-items-center flex-column registerBoxDesign">
                 <h1>REGÍSTRATE</h1>
+                <label>Nombre</label>
                 <CustomInput
                     type="text"
                     name="name"
+                    placeholder={"Nombre"}
                     design={`input-design ${userError.nameError !== "" ? "input-designError" : ""
                         }`}
                     value={userCredentials.name || ""}
@@ -67,9 +69,11 @@ export const Register = () => {
                     onBlurFunction={(e) => checkError(e)}
                 />
                 <div className="error">{userError.nameError}</div>
+                <label>Email</label>
                 <CustomInput
                     type="email"
                     name="email"
+                    placeholder={"Email"}
                     design={`input-design ${userError.emailError !== "" ? "input-designError" : ""
                         }`}
                     value={userCredentials.email || ""}
@@ -77,9 +81,11 @@ export const Register = () => {
                     onBlurFunction={(e) => checkError(e)}
                 />
                 <div className="error">{userError.emailError}</div>
+                <label>Password</label>
                 <CustomInput
                     type="password"
                     name="password"
+                    placeholder={"Pssword"}
                     design={`input-design ${userError.passwordError !== "" ? "input-designError" : ""
                         }`}
                     value={userCredentials.password || ""}
