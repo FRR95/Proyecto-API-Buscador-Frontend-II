@@ -12,6 +12,7 @@ import { PostCard } from "../../components/PostCard/PostCard";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { TextArea } from "../../components/TextArea/TextArea";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ export const Profile = () => {
   });
 
   const postHandler = (e) => {
-    
+
     setPostCredentials((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -110,8 +111,8 @@ export const Profile = () => {
 
 
   const editProfile = async () => {
-    const fetched = await UpdateProfile(user,rdxUser.credentials.token)
-    
+    const fetched = await UpdateProfile(user, rdxUser.credentials.token)
+
     console.log(`Credentials ${user.name}`)
     if (!fetched.success) {
       toast.error(fetched.message)
@@ -121,7 +122,7 @@ export const Profile = () => {
 
     setTimeout(() => {
       getUserProfile()
-      
+
     }, 500);
 
   }
@@ -174,7 +175,7 @@ export const Profile = () => {
       description: post.description
     })
 
-  console.log(postCredentials)
+    console.log(postCredentials)
   }
   const ClearForm = async (post) => {
     setPostCredentials({
@@ -183,7 +184,7 @@ export const Profile = () => {
       description: ""
     })
 
-  
+
   }
 
 
@@ -225,92 +226,90 @@ export const Profile = () => {
     <>
       <div className="d-flex justify-content-center row  align-items-center profileDesign">
 
-      <div className="modal fade" id="exampleModalProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <p>Modal Profile update</p>
+        <div className="modal fade customModal" id="exampleModalProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Edita tu usuario</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+             
 
-              <CustomInput
-                type="text"
-                name="name"
-                value={user.name || ""}
-                changeEmit={inputHandler}
-              />
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=>editProfile(user._id)} >{`Editar `}</button>
-            </div>
-          </div>
-        </div>
-      </div>
+                <CustomInput
+                  type="text"
+                  name="name"
+                  value={user.name || ""}
+                  changeEmit={inputHandler}
+                />
+              </div>
+              <div className="modal-footer">
 
-
-      <div className="modal fade" id="exampleModalPost" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" onClick={ClearForm} aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <p>Modal Post update</p>
-
-              <CustomInput
-              type="text"
-              name="title"
-              design={"input-design"}
-              value={postCredentials.title || ""}
-              changeEmit={postHandler}
-            />
-              <CustomInput
-              type="text"
-              name="description"
-              design={"input-design-big"}
-              value={postCredentials.description || ""}
-              changeEmit={postHandler}
-            />
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" onClick={ClearForm} data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} >{`Editar `}</button>
+                <button type="button" className="btn buttonEditDesign " data-bs-dismiss="modal" onClick={() => editProfile(user._id)} ><i class="bi bi-pen-fill"></i>{`Editar`}</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-        
-
-            <div className="d-flex justify-content-center row  align-items-center">
-              <ProfileCard
-                idUser={"idUser"}
-                key={"key"}
-                username={user.name}
-                email={user.email}
-                buttonSectionDesign={"d-flex row justify-content-center align-items-center"}
-
-                buttonDeleteSection={"d-none"}
-                buttonDetailSection={"d-none"}
-                buttonEditSection={"d-flex col justify-content-center align-items-center"}
-                buttonEditTitle={`Editar ${user.name}`}
-
-                buttonEditDesign={"buttonEditDesign"}
-
-                followFollowingSection={"d-flex row justify-content-center align-items-center"}
-                buttonFollowerSection={"d-flex col justify-content-center align-items-center"}
-                numberOfFollowers={user.followers.length}
-                buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
-                numberOfFollowing={user.following.length}
 
 
-              />
+        <div className="modal fade" id="exampleModalPost" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">Editar Post</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" onClick={ClearForm} aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+
+                <CustomInput
+                  type="text"
+                  name="title"
+                  design={"input-design"}
+                  value={postCredentials.title || ""}
+                  changeEmit={postHandler}
+                />
+                <TextArea
+                  type="text"
+                  name="description"
+                  design={"input-design-big"}
+                  value={postCredentials.description || ""}
+                  changeEmit={postHandler}
+                />
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn buttonEditDesign" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} ><i class="bi bi-pen-fill"></i>{`Editar`}</button>
+              </div>
             </div>
+          </div>
+        </div>
 
-        
+
+        <div className="d-flex justify-content-center row  align-items-center">
+          <ProfileCard
+            idUser={"idUser"}
+            key={"key"}
+            username={user.name}
+            email={user.email}
+            buttonSectionDesign={"d-flex row justify-content-center align-items-center"}
+
+            buttonDeleteSection={"d-none"}
+            buttonDetailSection={"d-none"}
+            buttonEditSection={"d-flex col justify-content-center align-items-center"}
+            buttonEditTitle={`Editar ${user.name}`}
+
+            buttonEditDesign={"buttonEditDesign"}
+
+            followFollowingSection={"d-flex row justify-content-center align-items-center"}
+            buttonFollowerSection={"d-flex col justify-content-center align-items-center"}
+            numberOfFollowers={user.followers.length}
+            buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
+            numberOfFollowing={user.following.length}
+
+
+          />
+        </div>
+
+
 
         <div className="d-flex mt-5 justify-content-center row  align-items-center">
           <div className="d-flex justify-content-center row  align-items-center">
@@ -325,7 +324,7 @@ export const Profile = () => {
           </div>
           <div className="d-flex justify-content-center row  align-items-center">
             <p>Descripción</p>
-            <CustomInput
+            <TextArea
               type="text"
               name="description"
               design={"input-design-big"}
@@ -336,7 +335,7 @@ export const Profile = () => {
           <div className="d-flex justify-content-center   align-items-center">
             <CustomButton
               onClick={createPost}
-              design={"m-1"}
+              design={"m-1 buttonDetailDesign"}
               title={`Post`}
               icon={"bi bi-sticky-fill"}
             />
@@ -366,7 +365,7 @@ export const Profile = () => {
                           userName={user.name}
                           title={post.title}
                           description={post.description}
-                          datePost={post.createdAt}
+                          datePost={new Date(post.createdAt).toDateString()}
                           numberOflikes={post.numberOfLikes.length}
                           emitEditButton={() => AddInfoToForm(post)}
                           emitDeleteButton={() => deletePost(post._id)}

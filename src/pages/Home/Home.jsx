@@ -74,7 +74,7 @@ export const Home = () => {
 
           <div className="  d-flex col-xl  col-lg  row-sm row-xs   justify-content-center align-items-center ">
             <div className="  d-flex row p-5  justify-content-center align-items-center rightBlockDesign ">
-             <img src="https://www.investopedia.com/thmb/tFHjCFL9uLlgj5_yQ6xt6WzH7iQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/social-media-final-8f48359ac9e7486eaf40932f4a9e2597.png" height="320em" width={"380em"} alt="SocialMedia" />
+              <img src="https://www.investopedia.com/thmb/tFHjCFL9uLlgj5_yQ6xt6WzH7iQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/social-media-final-8f48359ac9e7486eaf40932f4a9e2597.png" height="320em" width={"380em"} alt="SocialMedia" />
             </div>
           </div>
           <div className="  d-flex col-xl  col-lg  row-sm row-xs justify-content-center align-items-center ">
@@ -100,7 +100,8 @@ export const Home = () => {
                         buttonLikeSection={"d-flex justify-content-end"}
                         emitLikeButton={() => likeUnlikePost(post._id)}
                         numberOflikes={post.numberOfLikes.length}
-                      // userName={post.userId.email}
+                        userName={post.userId.email}
+                        datePost={new Date(post.createdAt).toDateString()}
 
                       />
                     </>

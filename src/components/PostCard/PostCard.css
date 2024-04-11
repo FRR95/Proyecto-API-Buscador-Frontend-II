@@ -3,6 +3,7 @@
     background-color: #7adaf7;
     border: 1px solid azure;
     padding: 2em;
+    border-radius: 1em;
 }
 
 .buttonEditDesign{
@@ -40,4 +41,8 @@
     background-color: rgb(232, 53, 248);
     transition: 0.5s;
 
+}
+
+.imgProfileSm{
+    width: 15em;
 }

@@ -1,9 +1,11 @@
 import "./ProfileDetailCard.css"
 
-export const ProfileDetailCard =({username,email,createdAt,numberOfFollowers,numberOfFollowing,buttonFollowUnfollowEmit,buttonFollowUnfollowDesign,buttonFollowUnfollowTitle})=>{
-    return(
+export const ProfileDetailCard = ({ username, email, createdAt, numberOfFollowers, numberOfFollowing, buttonFollowUnfollowEmit, buttonFollowUnfollowDesign, buttonFollowUnfollowTitle }) => {
+    return (
         <div className="d-flex row m-5 justify-content-center align-items-center profileDetailCardDesign">
-            
+            <div className="d-flex row justify-content-center align-items-center" ><img src="https://navchetnanirmanfoundation.in/img/User-Profile-PNG-Image.png" className="imgProfileSm" alt="img-profile" /></div>
+
+
             <div className="d-flex row justify-content-center align-items-center" >
                 {username}
             </div>
@@ -29,7 +31,7 @@ export const ProfileDetailCard =({username,email,createdAt,numberOfFollowers,num
 
             <div className={"d-flex row justify-content-center align-items-center"}>
                 <button onClick={buttonFollowUnfollowEmit} className="buttonDetailDesign" >
-                <i className="bi bi-person-fill"></i> {buttonFollowUnfollowTitle} 
+                    <i className="bi bi-person-fill"></i> {buttonFollowUnfollowTitle}
                 </button>
             </div>
         </div>

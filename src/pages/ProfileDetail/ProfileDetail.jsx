@@ -49,7 +49,7 @@ export const ProfileDetail = () => {
                     <ProfileDetailCard
                         username={detailRdx?.user.name}
                         email={detailRdx?.user.email}
-                        createdAt={detailRdx?.user.createdAt}
+                        createdAt={new Date(detailRdx?.user.createdAt).toDateString()}
                         numberOfFollowers={detailRdx?.user.followers.length}
                         numberOfFollowing={detailRdx?.user.following.length}
                         buttonFollowUnfollowEmit={() => FollowUnfollowUser(detailRdx?.user?._id)}
