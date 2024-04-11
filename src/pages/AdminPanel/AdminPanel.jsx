@@ -18,17 +18,24 @@ export const AdminPanel = () => {
     const searchUserRdx = useSelector(searchUserData);
 
     const [criteria, setCriteria] = useState("");
+    const [LoadingSpinner, setLoadingSpinner] = useState(false)
 
     const searchHandler = (e) => {
         setCriteria(e.target.value);
     };
 
     useEffect(() => {
+        setLoadingSpinner(true)
         const searching = setTimeout(() => {
+            
             dispatch(updateUserCriteria(criteria));
+            setLoadingSpinner(false)
         }, 375);
 
-        return () => clearTimeout(searching);
+        return () =>{
+            clearTimeout(searching);
+            setLoadingSpinner(false)
+        } 
     }, [criteria]);
 
     useEffect(() => {
@@ -51,25 +58,38 @@ export const AdminPanel = () => {
     )
 
     const inputUserHandler = (e) => {
+        
         setUserCredentials((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
+        
     };
 
     const BringUsers = async () => {
         try {
-
+            
             let fetched
             if (searchUserRdx.criteriaUser !== "") {
+              
+                
                 fetched = await searchUsers(rdxUser.credentials.token, searchUserRdx.criteriaUser);
+              
+                
             }
+           
             else {
+                
                 fetched = await getUsers(rdxUser.credentials.token)
+             
+               
+               
+               
             }
 
             setUsers(fetched.data)
-
+          
+           
 
 
         } catch (error) {
@@ -92,6 +112,7 @@ export const AdminPanel = () => {
     useEffect(() => {
 
         BringUsers()
+       
 
     }, [searchUserRdx.criteriaUser])
 
@@ -149,7 +170,7 @@ export const AdminPanel = () => {
     return (
         <div className="d-flex row    justify-content-center align-items-center adminPanelPageDesign" >
 
-            <div className="modal fade" id="exampleModalProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModalProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -182,6 +203,11 @@ export const AdminPanel = () => {
                 value={criteria || ""}
                 changeEmit={searchHandler}
             />
+                {LoadingSpinner
+                    &&
+                    <div class="spinner-border text-light mt-1" role="status">
+
+                    </div>}
 
             {users.map(
                 user => {

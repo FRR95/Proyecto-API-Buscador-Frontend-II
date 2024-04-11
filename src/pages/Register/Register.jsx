@@ -11,6 +11,7 @@ import { CustomLink } from "../../components/CustomLink/CustomLink"
 
 export const Register = () => {
     const navigate = useNavigate()
+    const [LoadingSpinner, setLoadingSpinner] = useState(false)
     const [userCredentials, setUser] = useState({
         name: "",
         password: "",
@@ -40,15 +41,19 @@ export const Register = () => {
     };
 
     const signInMe = async () => {
+        setLoadingSpinner(true)
         const fetched = await registerService(userCredentials)
 
         if (!fetched.success) {
             toast.error(`${fetched.message}`)
+            setLoadingSpinner(false)
         }
 
         setTimeout(() => {
             navigate("/login")
         }, 2500);
+
+        setLoadingSpinner(false)
 
         toast(`${fetched.message} Te llevamos a login`)
     }
@@ -98,7 +103,13 @@ export const Register = () => {
                     title={"Register"}
                     onClick={signInMe} />
 
-                    <p>¿Ya tienes cuenta? <CustomLink path={"/login"} title={"Inicia sesión"}/></p>
+                {LoadingSpinner
+                    &&
+                    <div class="spinner-border text-light mt-1" role="status">
+
+                    </div>}
+
+                <p>¿Ya tienes cuenta? <CustomLink path={"/login"} title={"Inicia sesión"} /></p>
 
                 <ToastContainer
                     position="top-center"

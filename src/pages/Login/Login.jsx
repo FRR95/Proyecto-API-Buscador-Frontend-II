@@ -15,11 +15,14 @@ import { CustomButton } from "../../components/CustomButton/CustomButton";
 import { validame } from "../../utils/functions";
 import { CustomLink } from "../../components/CustomLink/CustomLink";
 
+
 export const Login = () => {
   const navigate = useNavigate();
 
   //Instancia de Redux para escritura
   const dispatch = useDispatch();
+
+const [LoadingSpinner,setLoadingSpinner] =useState(false)
 
   const [user, setUser] = useState({
     email: "",
@@ -48,6 +51,7 @@ export const Login = () => {
   };
 
   const loginMe = async () => {
+    setLoadingSpinner(true)
     const fetched = await loginService(user);
 
     if (fetched.token) {
@@ -60,12 +64,14 @@ export const Login = () => {
 
       dispatch(login({ credentials: passport }));
       toast(` 🙍‍♂️ ${fetched.message} Redireccionando a Home`)
+      setLoadingSpinner(false)
       setTimeout(() => {
         navigate("/")
       }, 2500)
     }
     if (!fetched.success) {
       toast.error(`${fetched.message}`)
+      setLoadingSpinner(false)
     }
   };
 
@@ -101,6 +107,12 @@ export const Login = () => {
           design={""}
           title={"Login"}
           onClick={loginMe} />
+          {LoadingSpinner
+          &&
+          <div class="spinner-border text-light mt-1" role="status">
+        
+          </div> }
+        
         <p>¿No tienes cuenta aún? <CustomLink path={"/login"} title={"Regístrate"} /></p>
 
         <ToastContainer

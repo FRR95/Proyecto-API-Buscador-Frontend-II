@@ -44,7 +44,10 @@
 }
 
 .imgProfileSm{
-    width: 15em;
+    width: 8em;
+}
+.imgProfileLg{
+    width: 20em;
 }
 
 .usernameHover:hover{

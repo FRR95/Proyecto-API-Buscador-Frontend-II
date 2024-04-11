@@ -21,7 +21,7 @@ export const Profile = () => {
   const rdxUser = useSelector(userData)
 
   const [loadedData, setLoadedData] = useState(false);
-
+  const [LoadingSpinner, setLoadingSpinner] = useState(false)
 
 
 
@@ -91,6 +91,7 @@ export const Profile = () => {
 
   const getUserProfile = async () => {
     try {
+     
       const fetched = await GetProfile(rdxUser.credentials.token);
       setLoadedData(true);
 
@@ -128,11 +129,14 @@ export const Profile = () => {
   }
 
   const createPost = async () => {
+    setLoadingSpinner(true)
     const fetched = await CreatePost(rdxUser.credentials.token, postCredentials)
     if (!fetched.success) {
       toast.error(fetched.message)
+      setLoadingSpinner(false)
     }
     toast(`✔ ${fetched.message}`)
+    setLoadingSpinner(false)
 
     setPostCredentials({
       title: "",
@@ -341,6 +345,11 @@ export const Profile = () => {
                   icon={"bi bi-sticky-fill"}
                 />
               </div>
+              {LoadingSpinner
+                    &&
+                    <div class="spinner-border text-light mt-1" role="status">
+
+                    </div>}
             </div>
           </div>
 
