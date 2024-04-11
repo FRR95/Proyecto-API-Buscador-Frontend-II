@@ -70,8 +70,8 @@ const [LoadingSpinner,setLoadingSpinner] =useState(false)
       }, 2500)
     }
     if (!fetched.success) {
-      toast.error(`${fetched.message}`)
       setLoadingSpinner(false)
+      return toast.error(fetched.message)
     }
   };
 

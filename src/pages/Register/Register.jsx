@@ -45,8 +45,8 @@ export const Register = () => {
         const fetched = await registerService(userCredentials)
 
         if (!fetched.success) {
-            toast.error(`${fetched.message}`)
             setLoadingSpinner(false)
+            return toast.error(fetched.message)
         }
 
         setTimeout(() => {

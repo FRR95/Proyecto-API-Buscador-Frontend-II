@@ -1,6 +1,6 @@
 import "./PostDetailCard.css"
 
-export const PostDetailCard = ({ datePost, userName, title, description,dateUpdatedPost,IdPost,numberOflIkes,key }) => {
+export const PostDetailCard = ({ datePost, userName, title, description,dateUpdatedPost,IdPost,numberOflIkes,key,userOwner }) => {
     return (
         <div key={key} className="d-flex row m-5 justify-content-center align-items-center postDetailCardDesign">
             <div className="d-flex row justify-content-center align-items-center">
@@ -10,6 +10,7 @@ export const PostDetailCard = ({ datePost, userName, title, description,dateUpda
                 <p className="d-flex row justify-content-end align-items-center">{datePost} </p>
                 <p className="d-flex row justify-content-end align-items-center">{dateUpdatedPost} </p>
                 <p className="d-flex row justify-content-end align-items-center">{IdPost} </p>
+                <p className="d-flex row justify-content-end align-items-center">{userOwner} </p>
                 <p className="d-flex row justify-content-end align-items-center"><i className=" d-flex row justify-content-end align-items-center bi bi-heart-fill"></i>{numberOflIkes} </p>
             </div>
 

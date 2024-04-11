@@ -20,16 +20,17 @@ export const PostDetail =()=>{
         <div className="d-flex justify-content-center align-items-center postDetailDesign">{
             detailRdx?.post?._id
             && 
+            <>
            <PostDetailCard
            title={detailRdx?.post.title}
            description={detailRdx?.post.description}
            datePost={new Date(detailRdx?.post.createdAt).toDateString()}
-           dateUpdatedPost={detailRdx?.post.updatedAt}
+           dateUpdatedPost={new Date(detailRdx?.post.updatedAt).toDateString()}
            IdPost={detailRdx?.post._id}
            numberOflIkes={detailRdx?.post.numberOfLikes.length}
-           
+           userOwner={detailRdx?.post.userId.name}
            />
-            
+            </>
             }</div>
     )
 }

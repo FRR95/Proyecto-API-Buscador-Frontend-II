@@ -10,6 +10,7 @@ import { updatePostDetail } from "../../app/slices/postDetailSlice";
 import { ProfileCard } from "../../components/ProfileCard/ProfileCard";
 import { updateProfileDetail } from "../../app/slices/profileDetailSlice";
 import { ToastContainer, toast } from 'react-toastify';
+import { TextArea } from "../../components/TextArea/TextArea";
 
 export const Discover = () => {
   const dispatch = useDispatch();
@@ -176,11 +177,11 @@ export const Discover = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Editar post</h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <p>Modal Post update</p>
+             
 
               <CustomInput
               type="text"
@@ -189,17 +190,17 @@ export const Discover = () => {
               value={postCredentials.title || ""}
               changeEmit={postHandler}
             />
-              <CustomInput
-              type="text"
-              name="description"
-              design={"input-design-big"}
-              value={postCredentials.description || ""}
-              changeEmit={postHandler}
-            />
+                <TextArea
+                  type="text"
+                  name="description"
+                  design={"input-design"}
+                  value={postCredentials.description || ""}
+                  changeEmit={postHandler}
+                />
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} >{`Editar `}</button>
+          
+              <button type="button" className="btn  buttonEditDesign" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} ><i className="bi bi-pen-fill"></i>{`Editar`}</button>
             </div>
           </div>
         </div>

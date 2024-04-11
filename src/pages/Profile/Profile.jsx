@@ -132,8 +132,9 @@ export const Profile = () => {
     setLoadingSpinner(true)
     const fetched = await CreatePost(rdxUser.credentials.token, postCredentials)
     if (!fetched.success) {
-      toast.error(fetched.message)
       setLoadingSpinner(false)
+    return  toast.error(fetched.message)
+    
     }
     toast(`✔ ${fetched.message}`)
     setLoadingSpinner(false)
@@ -230,8 +231,8 @@ export const Profile = () => {
     <>
       <div className="d-flex justify-content-center row  align-items-center profileDesign">
 
-        <div className="modal fade customModal" id="exampleModalProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog">
+        <div className="modal fade " id="exampleModalProfile" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog ">
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">Edita tu usuario</h1>
@@ -249,7 +250,7 @@ export const Profile = () => {
               </div>
               <div className="modal-footer">
 
-                <button type="button" className="btn buttonEditDesign " data-bs-dismiss="modal" onClick={() => editProfile(user._id)} ><i class="bi bi-pen-fill"></i>{`Editar`}</button>
+                <button type="button" className="btn buttonEditDesign " data-bs-dismiss="modal" onClick={() => editProfile(user._id)} ><i className="bi bi-pen-fill"></i>{`Editar`}</button>
               </div>
             </div>
           </div>
@@ -281,13 +282,13 @@ export const Profile = () => {
                 />
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn buttonEditDesign" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} ><i class="bi bi-pen-fill"></i>{`Editar`}</button>
+                <button type="button" className="btn buttonEditDesign" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} ><i className="bi bi-pen-fill"></i>{`Editar`}</button>
               </div>
             </div>
           </div>
         </div>
         <div className="d-flex justify-content-center row    align-items-center">
-          <div className="d-flex justify-content-center  col-xl  col-lg  row-sm row-xs   align-items-center">
+          <div className="d-flex col-xl  col-lg  row-sm row-xs justify-content-center     align-items-center">
             <div className="d-flex justify-content-center row  align-items-center">
               <ProfileCard
                 idUser={"idUser"}
