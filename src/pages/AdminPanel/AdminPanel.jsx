@@ -27,15 +27,15 @@ export const AdminPanel = () => {
     useEffect(() => {
         setLoadingSpinner(true)
         const searching = setTimeout(() => {
-            
+
             dispatch(updateUserCriteria(criteria));
             setLoadingSpinner(false)
         }, 375);
 
-        return () =>{
+        return () => {
             clearTimeout(searching);
             setLoadingSpinner(false)
-        } 
+        }
     }, [criteria]);
 
     useEffect(() => {
@@ -58,38 +58,38 @@ export const AdminPanel = () => {
     )
 
     const inputUserHandler = (e) => {
-        
+
         setUserCredentials((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
-        
+
     };
 
     const BringUsers = async () => {
         try {
-            
+
             let fetched
             if (searchUserRdx.criteriaUser !== "") {
-              
-                
+
+
                 fetched = await searchUsers(rdxUser.credentials.token, searchUserRdx.criteriaUser);
-              
-                
+
+
             }
-           
+
             else {
-                
+
                 fetched = await getUsers(rdxUser.credentials.token)
-             
-               
-               
-               
+
+
+
+
             }
 
             setUsers(fetched.data)
-          
-           
+
+
 
 
         } catch (error) {
@@ -112,7 +112,7 @@ export const AdminPanel = () => {
     useEffect(() => {
 
         BringUsers()
-       
+
 
     }, [searchUserRdx.criteriaUser])
 
@@ -148,24 +148,26 @@ export const AdminPanel = () => {
         console.log(dispatched)
         //2. navegamos a la vista de detalle
         navigate("/profiledetail");
-      };
+    };
 
-     const DeleteUser =async(userId)=>{
+    const DeleteUser = async (userId) => {
         try {
             const fetched = await deleteUsers(userId,rdxUser.credentials.token)
             if(!fetched.success){
-                toast.error(fetched.message)
+               return toast(`😇 ${fetched.message}`)
             }
 
-            toast(`🗑 ${fetched.message}`)
-            
+            toast(`🗑️ ${fetched.message}`)
+
             BringUsers()
 
 
         } catch (error) {
             toast.error(error)
         }
-     }
+
+        
+    }
 
     return (
         <div className="d-flex row    justify-content-center align-items-center adminPanelPageDesign" >
@@ -187,7 +189,7 @@ export const AdminPanel = () => {
                             />
                         </div>
                         <div className="modal-footer">
-                            
+
                             <button type="button" className="btn buttonEditDesign" data-bs-dismiss="modal" onClick={() => UpdateUserInfo(userCredentials._id)} ><i className="bi bi-pen-fill"></i>{`Editar ${userCredentials.name}`}</button>
                         </div>
                     </div>
@@ -203,11 +205,11 @@ export const AdminPanel = () => {
                 value={criteria || ""}
                 changeEmit={searchHandler}
             />
-                {LoadingSpinner
-                    &&
-                    <div class="spinner-border text-light mt-1" role="status">
+            {LoadingSpinner
+                &&
+                <div class="spinner-border text-light mt-1" role="status">
 
-                    </div>}
+                </div>}
 
             {users.map(
                 user => {
