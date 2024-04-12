@@ -91,7 +91,7 @@ export const Profile = () => {
 
   const getUserProfile = async () => {
     try {
-     
+
       const fetched = await GetProfile(rdxUser.credentials.token);
       setLoadedData(true);
 
@@ -133,8 +133,8 @@ export const Profile = () => {
     const fetched = await CreatePost(rdxUser.credentials.token, postCredentials)
     if (!fetched.success) {
       setLoadingSpinner(false)
-    return  toast.error(fetched.message)
-    
+      return toast.error(fetched.message)
+
     }
     toast(`✔ ${fetched.message}`)
     setLoadingSpinner(false)
@@ -287,37 +287,37 @@ export const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-center row    align-items-center">
-          <div className="d-flex col-xl  col-lg  row-sm row-xs justify-content-center     align-items-center">
-            <div className="d-flex justify-content-center row  align-items-center">
-              <ProfileCard
-                idUser={"idUser"}
-                key={"key"}
-                username={user.name}
-                email={user.email}
-                buttonSectionDesign={"d-flex row justify-content-center align-items-center"}
 
-                buttonDeleteSection={"d-none"}
-                buttonDetailSection={"d-none"}
-                buttonEditSection={"d-flex col justify-content-center align-items-center"}
-                buttonEditTitle={`Editar ${user.name}`}
+        <div className="d-flex row justify-content-center     align-items-center">
+          <div className="d-flex col-xl  col-lg  row-sm row-xs justify-content-center   align-items-center">
+            <ProfileCard
+              idUser={"idUser"}
+              key={"key"}
+              username={user.name}
+              email={user.email}
+              buttonSectionDesign={"d-flex row justify-content-center align-items-center"}
 
-                buttonEditDesign={"buttonEditDesign"}
+              buttonDeleteSection={"d-none"}
+              buttonDetailSection={"d-none"}
+              buttonEditSection={"d-flex col justify-content-center align-items-center"}
+              buttonEditTitle={`Editar ${user.name}`}
 
-                followFollowingSection={"d-flex row justify-content-center align-items-center"}
-                buttonFollowerSection={"d-flex col justify-content-center align-items-center"}
-                numberOfFollowers={user.followers.length}
-                buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
-                numberOfFollowing={user.following.length}
+              buttonEditDesign={"buttonEditDesign"}
 
-
-              />
-            </div>
+              followFollowingSection={"d-flex row justify-content-center align-items-center"}
+              buttonFollowerSection={"d-flex col justify-content-center align-items-center"}
+              numberOfFollowers={user.followers.length}
+              buttonFollowingSection={"d-flex col justify-content-center align-items-center"}
+              numberOfFollowing={user.following.length}
 
 
+            />
+          </div>
 
 
-            <div className="d-flex mt-5 justify-content-center row  align-items-center">
+
+          <div className="d-flex col-xl  col-lg  row-sm row-xs mt-5 justify-content-center   align-items-center">
+            <div className="d-flex row mt-5 justify-content-center   align-items-center">
               <div className="d-flex justify-content-center row  align-items-center">
                 <p>Titulo</p>
                 <CustomInput
@@ -347,14 +347,15 @@ export const Profile = () => {
                 />
               </div>
               {LoadingSpinner
-                    &&
-                    <div class="spinner-border text-light mt-1" role="status">
+                &&
+                <div class="spinner-border text-light mt-1" role="status">
 
-                    </div>}
+                </div>}
             </div>
           </div>
-
         </div>
+
+
 
 
         {posts.length > 0

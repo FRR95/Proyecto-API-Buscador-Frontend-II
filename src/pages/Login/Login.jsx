@@ -113,7 +113,7 @@ const [LoadingSpinner,setLoadingSpinner] =useState(false)
         
           </div> }
         
-        <p>¿No tienes cuenta aún? <CustomLink path={"/login"} title={"Regístrate"} /></p>
+        <p>¿No tienes cuenta aún? <CustomLink path={"/register"} title={"Regístrate"} /></p>
 
         <ToastContainer
           position="top-center"

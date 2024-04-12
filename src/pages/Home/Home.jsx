@@ -89,8 +89,7 @@ export const Home = () => {
           </div>
           <div className="  d-flex col-xl  col-lg  row-sm row-xs justify-content-center align-items-center ">
             <div className="  d-flex row p-5  justify-content-center align-items-center rightBlockDesign ">
-              <h3>Bienvenido a SocialMedia</h3>
-              <p> <CustomLink path={"/register"} title={"Regístrate"} />  o <CustomLink path={"/login"} title={"Inicia sesión"} /> para acceder a nuestra red social</p>
+              <h3>Bienvenido a SocialMedia <CustomLink path={"/register"} title={"Regístrate"} />  o <CustomLink path={"/login"} title={"Inicia sesión"} /> para acceder a nuestra red social</h3>
             </div>
           </div>
 
@@ -120,7 +119,16 @@ export const Home = () => {
                 }
               )}
             </div>)
-            : ("No tienes posts de seguidos")
+            : (<div className="  d-flex row   justify-content-center align-items-center home-design">
+
+        
+            <div className="  d-flex col-xl  col-lg  row-sm row-xs justify-content-center align-items-center ">
+              <div className="  d-flex row p-5  justify-content-center align-items-center rightBlockDesign ">
+                <h3>¡Tu timeline esta vacío!,empieza a seguir y conocer gente en <CustomLink path={"/discover"} title={"Descubre"} /> </h3>
+              </div>
+            </div>
+  
+          </div>)
 
           }
         </div>)

@@ -22,6 +22,7 @@ export const AdminPanel = () => {
 
     const searchHandler = (e) => {
         setCriteria(e.target.value);
+    
     };
 
     useEffect(() => {
@@ -229,7 +230,7 @@ export const AdminPanel = () => {
                                     buttonDeleteSection={``}
                                     buttonDeleteTitle={`Borrar ${user.name}`}
                                     emitDeleteButton={() => DeleteUser(user._id)}
-                                    buttonDetailSection={``}
+                                    buttonDetailSection={`d-none`}
                                     buttonDetailTitle={`Ver ${user.name}`}
                                     emitDetailButton={() => manageUserDetail(user)}
                                 />
