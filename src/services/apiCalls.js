@@ -166,6 +166,29 @@ export const GetUserPosts = async (token) => {
     return error;
   }
 };
+export const GetUserPostsByUserId = async (userId,token) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
+
+  try {
+    const response = await fetch(`${root}users/posts/${userId}`, options);
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message);
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 export const deleteMyPost = async (postId,token) => {
   const options = {
     method: "DELETE",

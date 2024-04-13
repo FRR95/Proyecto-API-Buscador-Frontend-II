@@ -105,7 +105,7 @@ export const Register = () => {
 
                 {LoadingSpinner
                     &&
-                    <div class="spinner-border text-light mt-1" role="status">
+                    <div className="spinner-border text-light mt-1" role="status">
 
                     </div>}
 

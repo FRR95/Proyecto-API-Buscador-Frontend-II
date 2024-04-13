@@ -20,19 +20,9 @@ export const Discover = () => {
   const [users, setUsers] = useState([])
 
 
-  const [postCredentials, setPostCredentials] = useState({
-    _id: "",
-    title: "",
-    description: "",
-  });
 
-  const postHandler = (e) => {
-    console.log(e.target.value)
-    setPostCredentials((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+
+
 
 
 
@@ -99,15 +89,7 @@ export const Discover = () => {
 
   // CRUD POSTS
 
-  const DeletePost = async (postId) => {
-    const fetched = await deleteMyPost(postId, rdxUser.credentials.token)
-    if (!fetched.success) {
-      toast.error(`${fetched.message}`)
-    }
-    toast(`🗑 ${fetched.message}`)
-    BringPosts()
 
-  }
 
   const manageDetail = (post) => {
     //1. guardamos en RDX
@@ -124,21 +106,7 @@ export const Discover = () => {
   };
 
 
-  const updatePost = async(postId) => {
-    const fetched = await updateMyPost(postId, postCredentials, rdxUser.credentials.token)
-    if (!fetched.success) {
-      toast.error(fetched.message)
-    }
 
-    toast.warn(fetched.message)
-    BringPosts()
-
-    setPostCredentials({
-      _id: "",
-      title: "",
-      description: ""
-    })
-  }
 
 
   const likeUnlikePost = async (postId) => {
@@ -157,54 +125,13 @@ export const Discover = () => {
     }
   }
 
-  const AddInfoToForm = async (post) => {
-    setPostCredentials({
-      _id: post._id,
-      title: post.title,
-      description: post.description
-    })
 
-    console.log(postCredentials)
-
-  
-  }
 
 
   return (
     <div className="d-flex row    justify-content-center align-items-center discoverPageDesign">
 
-      <div className="modal fade" id="exampleModalPost" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Editar post</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-             
 
-              <CustomInput
-              type="text"
-              name="title"
-              design={"input-design"}
-              value={postCredentials.title || ""}
-              changeEmit={postHandler}
-            />
-                <TextArea
-                  type="text"
-                  name="description"
-                  design={"input-design"}
-                  value={postCredentials.description || ""}
-                  changeEmit={postHandler}
-                />
-            </div>
-            <div className="modal-footer">
-          
-              <button type="button" className="btn  buttonEditDesign" data-bs-dismiss="modal" onClick={() => updatePost(postCredentials._id)} ><i className="bi bi-pen-fill"></i>{`Editar`}</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
 
       {posts.length > 0
@@ -254,23 +181,22 @@ export const Discover = () => {
 
                     <div className="d-flex  justify-content-center align-items-center">
                       <PostCard
-                        buttonsSection={rdxUser?.credentials?.user?.roleName === "admin" ? ("d-flex justify-content-start") : ("d-none")}
+                        buttonsSection={"d-flex justify-content-start"}
                         buttonLikeSection={"d-flex justify-content-end"}
                         emitLikeButton={() => likeUnlikePost(post._id)}
-                        buttonDeleteSection={"d-flex justify-content-center m-1   align-items-center"}
+                        buttonDeleteSection={"d-none"}
                         buttonDeleteTitle={"Borrar post"}
-                        buttonEditSection={"d-flex justify-content-center m-1   align-items-center"}
+                        buttonEditSection={"d-none"}
                         buttonEditTitle={"Editar post"}
                         buttonDetailSection={"d-flex justify-content-center m-1  align-items-center"}
                         buttonDetailTitle={"Ver post"}
                         // userName={post.userId.email}
                         title={post.title}
                         description={post.description}
-                        datePost={post.createdAt}
+                        datePost={new Date(post.createdAt).toDateString()}
                         numberOflikes={post.numberOfLikes.length}
-                        emitDeleteButton={() => DeletePost(post._id)}
                         emitDetailButton={() => manageDetail(post)}
-                        emitEditButton={() => AddInfoToForm(post)}
+                       
                       />
                     </div>
 

@@ -348,7 +348,7 @@ export const Profile = () => {
               </div>
               {LoadingSpinner
                 &&
-                <div class="spinner-border text-light mt-1" role="status">
+                <div className="spinner-border text-light mt-1" role="status">
 
                 </div>}
             </div>
@@ -395,7 +395,7 @@ export const Profile = () => {
               )
               }
             </div>)
-          : (<p>No tienes posts aun</p>)
+          : (<h3>No tienes posts aun</h3>)
         }
 
       </div>
