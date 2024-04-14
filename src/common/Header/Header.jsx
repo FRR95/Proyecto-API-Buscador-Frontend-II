@@ -32,7 +32,7 @@ export const Header = () => {
 
     return (
         <div className=" d-flex justify-content-center align-items-center header-design">
-            <img className="logoImg" onClick={goHome} src=".\imgs\logosocialmedia.png" alt="" />
+            <img className="logoImg" onClick={goHome} src="../../public/imgs/logosocialmedia.png" alt="" />
 
             <CustomLink
                 path="/" title="Home" />

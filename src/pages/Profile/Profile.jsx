@@ -130,6 +130,12 @@ export const Profile = () => {
 
   const createPost = async () => {
     setLoadingSpinner(true)
+    for (let elemento in postCredentials) {
+      if (postCredentials[elemento] === "") {
+          setLoadingSpinner(false)
+        throw new Error("Todos los campos tienen que estar rellenos");
+      }
+    }
     const fetched = await CreatePost(rdxUser.credentials.token, postCredentials)
     if (!fetched.success) {
       setLoadingSpinner(false)

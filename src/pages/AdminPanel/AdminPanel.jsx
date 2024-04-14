@@ -155,7 +155,7 @@ export const AdminPanel = () => {
         try {
             const fetched = await deleteUsers(userId,rdxUser.credentials.token)
             if(!fetched.success){
-               return toast(`😇 ${fetched.message}`)
+               return toast.error(`${fetched.message}`)
             }
 
             toast(`🗑️ ${fetched.message}`)

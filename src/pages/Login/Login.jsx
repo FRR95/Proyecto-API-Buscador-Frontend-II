@@ -22,7 +22,7 @@ export const Login = () => {
   //Instancia de Redux para escritura
   const dispatch = useDispatch();
 
-const [LoadingSpinner,setLoadingSpinner] =useState(false)
+  const [LoadingSpinner, setLoadingSpinner] = useState(false)
 
   const [user, setUser] = useState({
     email: "",
@@ -52,27 +52,47 @@ const [LoadingSpinner,setLoadingSpinner] =useState(false)
 
   const loginMe = async () => {
     setLoadingSpinner(true)
-    const fetched = await loginService(user);
+    try {
 
-    if (fetched.token) {
-      const decodificado = decodeToken(fetched.token);
+      for (let elemento in user) {
 
-      const passport = {
-        token: fetched.token,
-        user: decodificado,
-      };
+        if (user[elemento] === "") {
 
-      dispatch(login({ credentials: passport }));
-      toast(` 🙍‍♂️ ${fetched.message} Redireccionando a Home`)
-      setLoadingSpinner(false)
-      setTimeout(() => {
-        navigate("/")
-      }, 2500)
+          setLoadingSpinner(false)
+
+          return toast.error("Todos los campos tienen que estar rellenos")
+
+        }
+
+      }
+
+      const fetched = await loginService(user);
+
+      if (fetched.token) {
+        const decodificado = decodeToken(fetched.token);
+
+        const passport = {
+          token: fetched.token,
+          user: decodificado,
+        };
+
+        dispatch(login({ credentials: passport }));
+        toast(` 🙍‍♂️ ${fetched.message} Redireccionando a Home`)
+        setLoadingSpinner(false)
+        setTimeout(() => {
+          navigate("/")
+        }, 2500)
+      }
+      if (!fetched.success) {
+        setLoadingSpinner(false)
+        return toast.error(fetched.message)
+      }
+
     }
-    if (!fetched.success) {
-      setLoadingSpinner(false)
-      return toast.error(fetched.message)
+    catch (error) {
+      toast.error(error)
     }
+
   };
 
   return (
@@ -107,12 +127,12 @@ const [LoadingSpinner,setLoadingSpinner] =useState(false)
           design={""}
           title={"Login"}
           onClick={loginMe} />
-          {LoadingSpinner
+        {LoadingSpinner
           &&
           <div className="spinner-border text-light mt-1" role="status">
-        
-          </div> }
-        
+
+          </div>}
+
         <p>¿No tienes cuenta aún? <CustomLink path={"/register"} title={"Regístrate"} /></p>
 
         <ToastContainer

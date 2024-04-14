@@ -42,20 +42,35 @@ export const Register = () => {
 
     const signInMe = async () => {
         setLoadingSpinner(true)
-        const fetched = await registerService(userCredentials)
 
-        if (!fetched.success) {
+        try {
+            
+
+            for (let elemento in userCredentials) {
+                if (userCredentials[elemento] === "") {
+                    setLoadingSpinner(false)
+                  throw new Error("Todos los campos tienen que estar rellenos");
+                }
+              }
+            const fetched = await registerService(userCredentials)
+    
+            if (!fetched.success) {
+                setLoadingSpinner(false)
+                return toast.error(fetched.message)
+            }
+    
+            setTimeout(() => {
+                navigate("/login")
+            }, 2500);
+    
             setLoadingSpinner(false)
-            return toast.error(fetched.message)
+    
+            toast(`${fetched.message} Te llevamos a login`)
+            
+        } catch (error) {
+            toast.error(`${error}`)
         }
-
-        setTimeout(() => {
-            navigate("/login")
-        }, 2500);
-
-        setLoadingSpinner(false)
-
-        toast(`${fetched.message} Te llevamos a login`)
+   
     }
 
     return (
