@@ -1,6 +1,6 @@
 # SocialMedia 🌐
 
-<img src="./public/imgs/tatoostudio.jpg" alt="index" />
+<img src="./public/imgs/logosocialmedia.png" alt="index" />
 
 Hi Geeks! I have made a Front End website based on <img src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=React&logoColor=white" alt="React" />  of the Api Rest Backend that I made about a Social Netwowk
 
@@ -47,65 +47,60 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 ### Home.jsx
 
 ***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/home_desktop.PNG" alt="index" />
 
 ***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/home_mobile.PNG" alt="index" />
 
 ### Discover.jsx
 
-***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
 
-***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/discover_desktop.PNG" alt="index" />
+
+
 
 ### Register.jsx
 
-***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
 
-***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/register_desktop.PNG" alt="index" />
+
+
 
 ### Login.jsx
 
-***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
 
-***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/login_desktop.PNG" alt="index" />
+
+
 
 ### Profile.jsx
 
 ***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/profile_desktop.PNG" alt="index" />
 
 ***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/profile_mobile.PNG" alt="index" />
 
 ### AdminPanel.jsx
-***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
 
-***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/adminpanel_desktop.PNG" alt="index" />
+
+
 
 ### PostDetail.jsx
 
-***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
 
-***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/postdetail_desktop.PNG" alt="index" />
+
+
 
 ### ProfileDetail.jsx
 
 ***Desktop version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/profiledetail_desktop.PNG" alt="index" />
 
 ***Mobile version***
-<img src="./public/imgs/Home.PNG" alt="index" />
+<img src="./public/imgs/profiledetail_mobile.PNG" alt="index" />
 
 </details>
 

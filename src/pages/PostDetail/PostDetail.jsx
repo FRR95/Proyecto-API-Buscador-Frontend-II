@@ -22,13 +22,13 @@ export const PostDetail =()=>{
             && 
             <>
            <PostDetailCard
-           title={detailRdx?.post.title}
-           description={detailRdx?.post.description}
-           datePost={new Date(detailRdx?.post.createdAt).toDateString()}
-           dateUpdatedPost={new Date(detailRdx?.post.updatedAt).toDateString()}
-           IdPost={detailRdx?.post._id}
-           numberOflIkes={detailRdx?.post.numberOfLikes.length}
-           userOwner={detailRdx?.post.userId.name}
+           title={`Titulo: ${detailRdx?.post.title}`}
+           description={`Descripción: ${detailRdx?.post.description}`}
+           datePost={`Fecha de creación: ${new Date(detailRdx?.post.createdAt).toDateString()}`}
+           dateUpdatedPost={`Fecha de modificación: ${new Date(detailRdx?.post.updatedAt).toDateString()}`}
+           IdPost={`Id del post: ${detailRdx?.post._id}`}
+           numberOflIkes={`${detailRdx?.post.numberOfLikes.length}`}
+           userOwner={`Propietario del post: ${detailRdx?.post.userId.name}`}
            />
             </>
             }</div>
