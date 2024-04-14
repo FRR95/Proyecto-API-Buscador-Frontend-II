@@ -68,6 +68,11 @@ export const Login = () => {
 
       const fetched = await loginService(user);
 
+      if (!fetched.success) {
+        setLoadingSpinner(false)
+        return toast.error(fetched.message)
+      }
+
       if (fetched.token) {
         const decodificado = decodeToken(fetched.token);
 
@@ -77,16 +82,13 @@ export const Login = () => {
         };
 
         dispatch(login({ credentials: passport }));
-        toast(` 🙍‍♂️ ${fetched.message} Redireccionando a Home`)
+        toast(` 🙍‍♂️ ${fetched.message} Redireccionando a Home,${fetched.data}`)
         setLoadingSpinner(false)
         setTimeout(() => {
           navigate("/")
         }, 2500)
       }
-      if (!fetched.success) {
-        setLoadingSpinner(false)
-        return toast.error(fetched.message)
-      }
+     
 
     }
     catch (error) {

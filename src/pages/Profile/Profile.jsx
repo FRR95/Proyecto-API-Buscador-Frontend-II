@@ -112,9 +112,15 @@ export const Profile = () => {
 
 
   const editProfile = async () => {
+
+
+    if (user.name === "") {
+    return  toast.error('Todos los campos deben ser rellenados')
+    }
+
     const fetched = await UpdateProfile(user, rdxUser.credentials.token)
 
-    console.log(`Credentials ${user.name}`)
+
     if (!fetched.success) {
       toast.error(fetched.message)
     }
@@ -130,12 +136,12 @@ export const Profile = () => {
 
   const createPost = async () => {
     setLoadingSpinner(true)
-   
-      if (postCredentials.title === "" || postCredentials.description === "" ) {
-          setLoadingSpinner(false)
-        throw new Error("Todos los campos tienen que estar rellenos");
-      }
-    
+
+    if (postCredentials.title === "" || postCredentials.description === "") {
+      setLoadingSpinner(false)
+      throw new Error("Todos los campos tienen que estar rellenos");
+    }
+
     const fetched = await CreatePost(rdxUser.credentials.token, postCredentials)
     if (!fetched.success) {
       setLoadingSpinner(false)
@@ -164,6 +170,11 @@ export const Profile = () => {
   }
 
   const updatePost = async (postId) => {
+
+    if (postCredentials.title === "" || postCredentials.description === "") {
+      setLoadingSpinner(false)
+     return toast.error("Todos los campos tienen que estar rellenos");
+    }
     const fetched = await updateMyPost(postId, postCredentials, rdxUser.credentials.token)
     if (!fetched.success) {
       toast.error(fetched.message)

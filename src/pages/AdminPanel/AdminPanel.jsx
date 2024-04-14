@@ -126,6 +126,9 @@ export const AdminPanel = () => {
     }
 
     const UpdateUserInfo = async (userId) => {
+        if(userCredentials.name===""){
+           return toast.error(`Por favor,introduzca un nombre valido `)
+        }
         const fetched = await UpdateUserProfile(userId, userCredentials, rdxUser.credentials.token)
         if (!fetched.success) {
             toast.error(`${fetched.message}`)

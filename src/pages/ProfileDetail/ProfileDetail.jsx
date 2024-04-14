@@ -121,9 +121,12 @@ export const ProfileDetail = () => {
 
 
     const updatePost = async (postId) => {
+     if(postCredentials.title ==="" || postCredentials.description === ""){
+        return toast.error(`Todos los campos son requeridos`)
+     }
         const fetched = await updateMyPost(postId, postCredentials, rdxUser.credentials.token)
         if (!fetched.success) {
-            toast.error(fetched.message)
+           return toast.error(fetched.message)
         }
 
         toast.warn(fetched.message)
