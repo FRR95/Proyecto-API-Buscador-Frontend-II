@@ -52,6 +52,11 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 ***Mobile version***
 <img src="./public/imgs/home_mobile.PNG" alt="index" />
 
+***When you are logged (Timeline)***
+<img src="./public/imgs/timeline_desktop.PNG" alt="index" />
+
+
+
 ### Discover.jsx
 
 
