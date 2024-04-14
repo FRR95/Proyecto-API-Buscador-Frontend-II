@@ -100,7 +100,7 @@ export const Discover = () => {
   const manageUserDetail = (user) => {
     //1. guardamos en RDX
     const dispatched = dispatch(updateProfileDetail({ user }));
-    console.log(dispatched)
+    
     //2. navegamos a la vista de detalle
     navigate("/profiledetail");
   };

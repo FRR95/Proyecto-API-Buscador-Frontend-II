@@ -27,7 +27,7 @@ export const ProfileDetail = () => {
     });
 
     const postHandler = (e) => {
-        console.log(e.target.value)
+       
         setPostCredentials((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -52,7 +52,7 @@ export const ProfileDetail = () => {
         if (!fetched.success) {
             console.log(fetched.message)
         }
-        console.log(fetched)
+        
         setUserPosts(fetched.data)
     }
 
@@ -100,7 +100,7 @@ export const ProfileDetail = () => {
             description: post.description
         })
 
-        console.log(postCredentials)
+        
 
 
     }
