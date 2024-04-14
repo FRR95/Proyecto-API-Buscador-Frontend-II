@@ -49,8 +49,10 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 ***Desktop version***
 <img src="./public/imgs/home_desktop.PNG" alt="index" />
 
+
 ***Mobile version***
 <img src="./public/imgs/home_mobile.PNG" alt="index" />
+
 
 ***When you are logged (Timeline)***
 <img src="./public/imgs/timeline_desktop.PNG" alt="index" />
@@ -83,8 +85,10 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 ***Desktop version***
 <img src="./public/imgs/profile_desktop.PNG" alt="index" />
 
+
 ***Mobile version***
 <img src="./public/imgs/profile_mobile.PNG" alt="index" />
+
 
 ### AdminPanel.jsx
 
@@ -103,6 +107,7 @@ Hi Geeks! I have made a Front End website based on <img src="https://img.shields
 
 ***Desktop version***
 <img src="./public/imgs/profiledetail_desktop.PNG" alt="index" />
+
 
 ***Mobile version***
 <img src="./public/imgs/profiledetail_mobile.PNG" alt="index" />
